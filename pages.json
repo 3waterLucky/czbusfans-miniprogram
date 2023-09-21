@@ -1,0 +1,81 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "潮巴园"
+			}
+		},
+		{
+				"path" : "pages/BusFans/BusFans",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "巴迷天地",
+						"enablePullDownRefresh": false
+				}
+		},
+		{
+				"path" : "pages/SelfCenter/SelfCenter",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "个人中心",
+						"enablePullDownRefresh": false
+				}
+		},
+		{
+				"path" : "pages/BusLines/BusLines",
+				"style" :                                                                                    
+				{
+						"navigationBarTitleText": "线路大全",
+						"enablePullDownRefresh": false
+				}
+		}
+	    ,{
+            "path" : "pages/submitInfo/submitInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "潮巴园",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"backgroundColor": "#e6e6e6",
+		"color": "#888",
+		"selectedColor": "#ffaa00",
+		"list": [
+			{
+				"iconPath": "static/images/shouye-tianchong.png",
+				"selectedIconPath": "static/images/shouyetianchong.png",
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"iconPath": "static/images/gongjiao1.png",
+				"selectedIconPath": "static/images/gongjiao.png",
+				"pagePath": "pages/BusLines/BusLines",
+				"text": "线路大全"
+			},
+			{
+				"iconPath": "static/images/xinwensudi.png",
+				"selectedIconPath": "static/images/bokexinwen.png",
+				"pagePath": "pages/BusFans/BusFans",
+				"text": "巴迷天地"
+			},
+			{
+				"iconPath": "static/images/wodewo.png",
+				"selectedIconPath": "static/images/wode.png",
+				"pagePath": "pages/SelfCenter/SelfCenter",
+				"text": "个人中心"
+			}
+		]
+	}
+}
