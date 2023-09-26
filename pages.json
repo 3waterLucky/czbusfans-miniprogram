@@ -3,7 +3,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "潮巴园"
+				"navigationBarTitleText": "潮巴园",
+				"navigationBarBackgroundColor": "#ffaa00"
 			}
 		},
 		{
@@ -19,6 +20,7 @@
 				"style" :                                                                                    
 				{
 						"navigationBarTitleText": "个人中心",
+						"navigationBarBackgroundColor": "#ffaa00",
 						"enablePullDownRefresh": false
 				}
 		},
