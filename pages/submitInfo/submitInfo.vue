@@ -8,13 +8,14 @@
 		</view>
 		<view class="info">
 			<span>昵称</span>
-			<input class="nickName" type="nickname" placeholder="请输入昵称" @input="setNickName">
+			<input class="nickName" type="nickname" placeholder="请输入昵称">
 		</view>
 		<button class="submit" type="primary" size="default" @click="submitInfo">提交</button>
 	</view>
 </template>
 
 <script>
+	import { uploadAvatar } from '../../api/user.js'
 	export default {
 		data() {
 			return {
@@ -26,34 +27,62 @@
 			// 选择头像
 			onChooseAvatar(e) {
 				const { avatarUrl } = e.detail
-				uni.getFileSystemManager().saveFile({
-					tempFilePath: avatarUrl,
-					success:(res) => {
-						this.avatarUrl = res.savedFilePath
-					}
-				})
+				this.avatarUrl = avatarUrl
+				// uni.getFileSystemManager().saveFile({
+				// 	tempFilePath: avatarUrl,
+				// 	success:(res) => {
+				// 		this.avatarUrl = res.savedFilePath
+				// 	}
+				// })
 			},
 			// 提交头像和昵称到服务器
 			submitInfo() {
-				if (!this.avatarUrl.length) {
-					this.avatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-					uni.getFileSystemManager().saveFile({
-						tempFilePath: this.avatarUrl,
-						success:(res) => {
-							this.avatarUrl = res.savedFilePath
-						}
-					})
-				}
-				const data = {
-					avatar: this.avatarUrl,
-					nickName: this.nickName.length ? this.nickName : '游客'
-				}
-				this.$store.dispatch('setUserInfo', data)
+				// 获取input的值，由于昵称既可以自动填充也可以自行输入，需要用此方法获取input的value值
+				uni.createSelectorQuery().select('.nickName').fields({
+					properties: ['value']
+				}, res => {
+					console.log(res)
+					if (!res.value.length) {
+						this.nickName = this.$store.state.user.nickName
+					} else {
+						this.nickName = res.value
+					}
+				}).exec(() => {
+					// 将临时头像存储在本地
+					// uni.getFileSystemManager().saveFile({
+					// 	tempFilePath: this.avatarUrl,
+					// 	success:(res) => {
+					// 		this.avatarUrl = res.savedFilePath
+					// 	}
+					// })
+					console.log('In submitInfo, this.nickName: ', this.nickName)
+					console.log('uploadAvatar')
+					if (this.avatarUrl.length) {
+						uploadAvatar(this.avatarUrl).then(() => {
+							console.log('uploadAvatar success')
+							console.log('getUserInfo')
+							this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+						})
+					} else {
+						console.log('getUserInfo')
+						this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+						// this.$bus.$emit('updateUserInfo')
+					}
+					
+					const data = {
+						// avatar: this.avatarUrl.length ? this.avatarUrl : this.$store.state.user.avatarUrl,
+						// nickName: this.nickName.length ? this.nickName : '游客'
+						nickName: this.nickName
+					}
+					console.log('dispatch: setUserInfo')
+					this.$store.dispatch('setUserInfo', data)
+				});
 			},
 			// 填写昵称
-			setNickName(e) {
-				this.nickName = e.detail.value
-			}
+			// setNickName(e) {
+			// 	console.log(e)
+			// 	this.nickName = e.detail.value
+			// }
 		}
 	}
 </script>
@@ -98,3 +127,4 @@
 		margin-top: 50px;
 	}
 </style>
+

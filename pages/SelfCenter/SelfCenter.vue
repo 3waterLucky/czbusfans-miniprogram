@@ -45,6 +45,10 @@
 		onLoad() {
 			console.log('SelfCenter onLoad')
 			this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+			this.$bus.$on('updateUserInfo', () => {
+				console.log('on updateUserInfo')
+				this.$forceUpdate()
+			})
 		}
 	}
 </script>
