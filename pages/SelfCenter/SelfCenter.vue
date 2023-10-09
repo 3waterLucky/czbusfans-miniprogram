@@ -10,6 +10,12 @@
 			<view class="options-item" @click="toSelfInfo">
 				个人信息  >
 			</view>
+			<view class="options-item">
+				问题反馈  >
+			</view>
+			<view class="options-item">
+				关于我们  >
+			</view>
 		</view>
 		<view class="pos">
 			经度：{{userLocation.longitude}}
@@ -54,8 +60,9 @@
 </script>
 
 <style lang="less" scoped>
-	page {
-		background-color: #888;
+	.page {
+		min-height: 100vh;
+		background-color: #eee;
 	}
 	
 	.pos {
@@ -90,6 +97,7 @@
 	.options {
 		margin-top: 10px;
 		border-top: 1px solid #888;
+		background-color: #fff;
 		
 		.options-item {
 			height: 40px;

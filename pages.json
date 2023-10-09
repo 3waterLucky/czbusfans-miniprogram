@@ -8,40 +8,55 @@
 			}
 		},
 		{
-				"path" : "pages/BusFans/BusFans",
-				"style" :                                                                                    
-				{
-						"navigationBarTitleText": "巴迷天地",
-						"enablePullDownRefresh": false
-				}
+			"path" : "pages/BusFans/BusFans",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "巴迷天地",
+					"enablePullDownRefresh": false
+			}
 		},
 		{
-				"path" : "pages/SelfCenter/SelfCenter",
-				"style" :                                                                                    
-				{
-						"navigationBarTitleText": "个人中心",
-						"navigationBarBackgroundColor": "#ffaa00",
-						"enablePullDownRefresh": false
-				}
+			"path" : "pages/SelfCenter/SelfCenter",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "个人中心",
+					"navigationBarBackgroundColor": "#ffaa00",
+					"enablePullDownRefresh": false
+			}
 		},
 		{
-				"path" : "pages/BusLines/BusLines",
-				"style" :                                                                                    
-				{
-						"navigationBarTitleText": "线路大全",
-						"enablePullDownRefresh": false
-				}
+			"path" : "pages/BusLines/BusLines",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "线路大全",
+					"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/submitInfo/submitInfo",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "修改个人信息",
+					"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/BugReport/BugReport",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "问题反馈",
+					"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/StopsMap/StopsMap",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "站点打卡",
+					"enablePullDownRefresh": false
+			}
 		}
-	    ,{
-            "path" : "pages/submitInfo/submitInfo",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "潮巴园",

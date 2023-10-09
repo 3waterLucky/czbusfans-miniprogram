@@ -1,7 +1,7 @@
 // 用户相关api
 import store from '../store/index.js'
 
-const baseUrl = 'http://192.168.1.2:3000'
+export const baseUrl = 'http://172.20.10.3:3000'
 
 // 服务器保存头像
 export const uploadAvatar = (tempPath) => 

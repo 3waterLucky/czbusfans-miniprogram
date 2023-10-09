@@ -10,8 +10,11 @@ const actions = {
 	getUserLocation({ commit }) {
 		console.log('action')
 		uni.getLocation({
+			type: 'gcj02',
+			isHighAccuracy: true,
 			success(res) {
 				commit('GETUSERLOCATION', res)
+				console.log('location accuracy: ', res.accuracy)
 			},
 			fail(err) {
 				console.log(err)
@@ -19,11 +22,16 @@ const actions = {
 		})
 	},
 	setUserInfo({ commit }, data) {
-		submitInfo(data).then((res) => {
-			if (res.statusCode == 200) {
-				console.log('submitInfo success')
-				commit('SETUSERINFO', data)
-			}
+		return new Promise((resolve, reject) => {
+			submitInfo(data).then((res) => {
+				if (res.statusCode == 200) {
+					console.log('submitInfo success')
+					commit('SETUSERINFO', data)
+					resolve('success')
+				} else {
+					reject('fail')
+				}
+			})
 		})
 	},
 	getUserInfo({ commit }, openid) {

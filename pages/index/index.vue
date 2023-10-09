@@ -20,24 +20,24 @@
 				</swiper-item>
 			</swiper>
 		</view>
+		
 		<!-- 推荐菜单栏 -->
-		<uni-grid class="recommend" :column="4" :highlight="true" @change="change">
-			<uni-grid-item v-for="(item, index) in 8" :index="index" :key="index">
+		<uni-grid class="recommend" :column="4" :highlight="true" @change="handleClickGrid">
+			<uni-grid-item>
 				<view class="grid-item-box" style="background-color: #fff;">
-					<uni-icons type="image" :size="30" color="#777" />
-					<text class="text">文本信息</text>
+					<uni-icons type="flag-filled" :size="30" color="red" />
+					<text class="text">站点打卡</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item v-for="(item, index) in 7" :index="index" :key="index">
+				<view class="grid-item-box" style="background-color: #fff;">
+					<uni-icons type="image" :size="30" color="green" />
+					<text class="text">敬请期待</text>
 				</view>
 			</uni-grid-item>
 		</uni-grid>
+		
 		<!-- 公告栏 -->
-		<!-- <view class="notice">
-				<view class="notice-header">
-					NEWS
-				</view>
-				<ul class="notice-body">
-					<li class="notice-item"></li>
-				</ul>
-		</view> -->
 		<uni-section class="notice" title="NEWS" titleFontSize="16px">
 			<!-- 装饰器插槽 -->
 			<template v-slot:decoration>
@@ -50,6 +50,7 @@
 				</view>
 			</view>
 		</uni-section>
+		
 		<!-- 引导关注 -->
 		<view class="follow">
 			<img src="../../static/images/follow1.png" alt="">
@@ -94,7 +95,13 @@
 
 		},
 		methods: {
-
+			handleClickGrid(e) {
+				if (e.detail.index == 0) {
+					uni.navigateTo({
+						url: '/pages/StopsMap/StopsMap'
+					})
+				}
+			}
 		}
 	}
 </script>
@@ -102,6 +109,7 @@
 <style lang="less" scoped>
 	
 	.content {
+		min-height: 100vh;
 		background-color: #eee;
 		padding-bottom: 10px;
 	}

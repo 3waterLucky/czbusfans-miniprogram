@@ -56,26 +56,41 @@
 					// 	}
 					// })
 					console.log('In submitInfo, this.nickName: ', this.nickName)
-					console.log('uploadAvatar')
-					if (this.avatarUrl.length) {
-						uploadAvatar(this.avatarUrl).then(() => {
-							console.log('uploadAvatar success')
-							console.log('getUserInfo')
-							this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
-						})
-					} else {
-						console.log('getUserInfo')
-						this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
-						// this.$bus.$emit('updateUserInfo')
-					}
 					
 					const data = {
-						// avatar: this.avatarUrl.length ? this.avatarUrl : this.$store.state.user.avatarUrl,
-						// nickName: this.nickName.length ? this.nickName : '游客'
 						nickName: this.nickName
 					}
 					console.log('dispatch: setUserInfo')
-					this.$store.dispatch('setUserInfo', data)
+					// Todo: 测试返回值
+					this.$store.dispatch('setUserInfo', data).then(res => {
+						if (res == 'success') {
+							console.log('uploadAvatar')
+							if (this.avatarUrl.length) {
+								uploadAvatar(this.avatarUrl).then(() => {
+									console.log('uploadAvatar success')
+									console.log('getUserInfo')
+									this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+									uni.showToast({
+										icon: 'success',
+										title: '保存成功'
+									})
+								})
+							} else {
+								console.log('getUserInfo')
+								this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+								// this.$bus.$emit('updateUserInfo')
+								uni.showToast({
+									icon: 'success',
+									title: '保存成功'
+								})
+							}
+						}
+					}, err => {
+						uni.showToast({
+							icon: 'fail',
+							title: '操作失败'
+						})
+					})
 				});
 			},
 			// 填写昵称
