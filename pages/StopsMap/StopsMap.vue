@@ -33,8 +33,10 @@
 			ref="popup"
 			:fullStopName="selectedFullStopName" 
 			:stopId="selectedStopId" 
+			:tickOffTimes="selectedStopTickOffTimes"
 			:userLocation="userLocation"
 			:class="{ showPopup: showPopup }"
+			@tickOffSuccess="addTickOffTimes"
 		></StopInfo>
 	</view>
 </template>
@@ -45,8 +47,10 @@
 		data() {
 			return {
 				stopsMarkers: [],
+				markedStopMarkers: [],
 				selectedStopId: 0,
 				selectedFullStopName: '',
+				selectedStopTickOffTimes: 0,
 				showPopup: false
 			};
 		},
@@ -58,30 +62,45 @@
 			})
 		},
 		onReady() {
-			this._mapCtx = uni.createMapContext('stopsMap', this)
-			this.$store.dispatch('getStopsList').then(() => {
-				this.stopsMarkers = this.stopsList.map((item) => {
-					let id = item.stopId
-					let latitude = item.latitude
-					let longitude = item.longitude
-					// let title = item.stopName
-					let iconPath = '../../static/images/redStop.png'
-					return {
-						id,
-						latitude,
-						longitude,
-						// title,
-						iconPath,
-						width: '20px',
-						height: '20px',
-					}
-				})
-				this._mapCtx.addMarkers({
-					markers: this.stopsMarkers
-				})
-			})
+			this.createMarkers()
 		},
 		methods: {
+			createMarkers() {
+				this._mapCtx = uni.createMapContext('stopsMap', this)
+				this.$store.dispatch('getStopsList').then(() => {
+					this.stopsMarkers = this.stopsList.map((item) => {
+						let id = item.stopId
+						let latitude = item.latitude
+						let longitude = item.longitude
+						let iconPath = '../../static/images/redStop.png'
+						return {
+							id,
+							latitude,
+							longitude,
+							iconPath,
+							width: '20px',
+							height: '20px',
+						}
+					})
+					this.markedStopMarkers = this.markedList.map((item) => {
+						let id = item.stopId
+						let latitude = item.latitude
+						let longitude = item.longitude
+						let iconPath = '../../static/images/greenStop.png'
+						return {
+							id,
+							latitude,
+							longitude,
+							iconPath,
+							width: '20px',
+							height: '20px',
+						}
+					})
+					this._mapCtx.addMarkers({
+						markers: this.stopsMarkers.concat(this.markedStopMarkers)
+					})
+				})
+			},
 			relocate() {
 				this._mapCtx.moveToLocation().then(() => {
 					this._mapCtx.scale = 16
@@ -89,10 +108,22 @@
 			},
 			handleMarkertap(e) {
 				this.selectedStopId = e.detail.markerId
+				let found = false
 				for (const stop of this.stopsList) {
 					if (stop.stopId === this.selectedStopId) {
 						this.selectedFullStopName = stop.stopName
+						this.selectedStopTickOffTimes = 0
+						found = true
 						break
+					}
+				}
+				if (!found) {
+					for (const stop of this.markedList) {
+						if (stop.stopId === this.selectedStopId) {
+							this.selectedFullStopName = stop.stopName
+							this.selectedStopTickOffTimes = stop.tickOffTimes
+							break
+						}
 					}
 				}
 				setTimeout(() => {
@@ -106,6 +137,12 @@
 					console.log('false', e)
 				}
 			},
+			addTickOffTimes() {
+				this.selectedStopTickOffTimes++
+				if (this.selectedStopTickOffTimes === 1) {
+					this.createMarkers()
+				}
+			}
 		}
 	}
 </script>

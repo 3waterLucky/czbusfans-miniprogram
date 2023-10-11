@@ -52,7 +52,7 @@
 			"path" : "pages/StopsMap/StopsMap",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "站点打卡",
+					"navigationBarTitleText": "站点定位",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -60,21 +60,12 @@
 				"path" : "pages/AboutUs/AboutUs",
 				"style" :                                                                                    
 				{
-						"navigationBarTitleText": "",
+						"navigationBarTitleText": "关于我们",
 						"enablePullDownRefresh": false
 				}
 				
 		}
-        ,{
-            "path" : "pages/ArticleWebView/ArticleWebView",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "潮巴园",

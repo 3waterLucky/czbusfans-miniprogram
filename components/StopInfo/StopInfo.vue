@@ -2,24 +2,29 @@
 	<view class="container">
 		<view class="busStop">
 			<view class="busPic">
-				<img src="../../static/images/BusStop.png" alt="">
+				<img class="busPic-img" src="../../static/images/BusStop.png" alt="">
 			</view>
 			<view class="busStop-right">
 				<view class="stopName">
 					{{ stopName }}
 				</view>
-				<view class="direction">
-					方向：{{ direction }}
+				<view class="busStop-right-lower">
+					<view class="direction">
+						方向：{{ direction }}
+					</view>
+					<view class="tickOffTimes">
+						打卡次数：{{ tickOffTimes }}
+					</view>
 				</view>
 			</view>
 		</view>
 		<view class="boxLine"></view>
 		<view class="buttons">
-			<button class="passbyLines">本站线路</button>
-			<button class="tickOff" @click="tickOff">
+			<button class="buttons-item passbyLines">本站线路</button>
+			<button class="buttons-item tickOff" @click="tickOff">
 				打卡
 			</button>
-			<button class="navToStop">导航至该站点</button>
+			<button class="buttons-item navToStop">导航至该站点</button>
 		</view>
 	</view>
 		
@@ -35,6 +40,7 @@
 		name:"StopInfo",
 		data() {
 			return {
+				
 			};
 		},
 		props: {
@@ -43,6 +49,10 @@
 				required: true
 			},
 			stopId: {
+				type: Number,
+				required: true
+			},
+			tickOffTimes: {
 				type: Number,
 				required: true
 			},
@@ -62,7 +72,7 @@
 				} else {
 					return seperated[1].slice(0, -1)
 				}
-			}
+			},
 		},
 		methods: {
 			// 打卡
@@ -98,6 +108,7 @@
 						if (dist <= 50) {
 							tickOff(this.stopId).then((res) => {
 								if (res.data.message == 'success') {
+									this.$emit('tickOffSuccess')
 									uni.showToast({
 										icon: 'success',
 										title: '打卡成功！'
@@ -115,7 +126,7 @@
 					}
 				})
 			},
-		}
+		},
 	}
 </script>
 
@@ -138,7 +149,7 @@
 				width: 60px;
 				height: 60px;
 				
-				img {
+				.busPic-img {
 					width: 100%;
 					height: 100%;
 				}
@@ -157,11 +168,25 @@
 					line-height: 40px;
 				}
 				
-				.direction {
-					height: 20px;
-					font-size: 14px;
-					color: #666;
-					line-height: 20px;
+				.busStop-right-lower {
+					width: calc(100vw - 110px);
+					
+					.direction {
+						float: left;
+						height: 20px;
+						font-size: 14px;
+						color: #666;
+						line-height: 20px;
+					}
+					
+					.tickOffTimes {
+						float: right;
+						height: 20px;
+						padding-right: 20px;
+						font-size: 14px;
+						color: #666;
+						line-height: 20px;
+					}
 				}
 			}
 		}
@@ -181,7 +206,7 @@
 			padding-bottom: 15px;
 			align-content: space-around;
 			
-			button {
+			.buttons-item  {
 				font-size: 18px;
 				background-color: #ffaa7f;
 				color: #fff;
