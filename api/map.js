@@ -10,3 +10,26 @@ export const getStopsList = () =>
 			openid: uni.getStorageSync('openid')
 		}
 	})
+	
+// 获取站点坐标
+export const getStopCoord = (stopId) => 
+	uni.request({
+		url: baseUrl + '/map/getStopCoord',
+		method: 'GET',
+		data: {
+			stopId
+		}
+	})
+	
+	// 打卡
+	export const tickOff = (stopId) => 
+		uni.request({
+			url: baseUrl + '/map/tickOff',
+			method: 'POST',
+			header: {
+				openid: uni.getStorageSync('openid')
+			},
+			data: {
+				stopId
+			}
+		})

@@ -25,7 +25,8 @@
 		<uni-grid class="recommend" :column="4" :highlight="true" @change="handleClickGrid">
 			<uni-grid-item>
 				<view class="grid-item-box" style="background-color: #fff;">
-					<uni-icons type="flag-filled" :size="30" color="red" />
+					<!-- <uni-icons custom-prefix="iconfont" type="icon-dingweidaka" :size="30"></uni-icons> -->
+					<img src="../../static/images/定位打卡.png" alt="">
 					<text class="text">站点打卡</text>
 				</view>
 			</uni-grid-item>
@@ -194,6 +195,11 @@
 			align-items: center;
 			justify-content: center;
 			padding: 15px 0;
+		}
+		
+		img {
+			height: 30px;
+			width: 30px;
 		}
 		
 		.text {

@@ -11,6 +11,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dingweidaka:before {
+  content: "\e648";
+}
+
+.icon-wentifankui:before {
+  content: "\e6b7";
+}
+
+.icon-guanyuwomen:before {
+  content: "\e655";
+}
+
+.icon-gerenxinxi:before {
+  content: "\e611";
+}
+
+.icon-qichezhan:before {
+  content: "\e61e";
+}
+
 .icon-dingwei:before {
   content: "\ec32";
 }
@@ -22,4 +42,3 @@
 .icon-tongbu:before {
   content: "\e69c";
 }
-

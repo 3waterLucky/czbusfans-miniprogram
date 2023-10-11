@@ -65,13 +65,12 @@
 		border-radius: 10px;
 		background-color: #fff;
 		overflow: hidden;
+		box-shadow: -4px 4px 2px #bbb;
 		
 		.lineNo {
 			float: left;
 			height: 100%;
 			width: 100px;
-			// border-radius: 5px;
-			// box-shadow: 3px 3px 1px #666;
 			
 			.lineNo-inner {
 				position: relative;

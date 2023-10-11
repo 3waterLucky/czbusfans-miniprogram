@@ -10,7 +10,7 @@
 			<span>昵称</span>
 			<input class="nickName" type="nickname" placeholder="请输入昵称">
 		</view>
-		<button class="submit" type="primary" size="default" @click="submitInfo">提交</button>
+		<button class="submit" size="default" hover-class="submit-hover" @click="submitInfo">提交</button>
 	</view>
 </template>
 
@@ -87,7 +87,7 @@
 						}
 					}, err => {
 						uni.showToast({
-							icon: 'fail',
+							icon: 'error',
 							title: '操作失败'
 						})
 					})
@@ -140,6 +140,14 @@
 	}
 	.submit {
 		margin-top: 50px;
+		width: 160px;
+		background-color: #ffaa00;
+		color: #fff;
+	}
+	
+	.submit-hover {
+		background-color: #c08000;
+		color: #c0c0c0;
 	}
 </style>
 
