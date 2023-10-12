@@ -10,21 +10,6 @@
 			@markertap="handleMarkertap"
 			@tap="closePopup"
 		>
-			<!-- <cover-view slot="callout">
-				<template v-for="(item, index) in stopsMarkers">
-					<cover-view  class="customCallout" :marker-id="item.id" :key="index">
-						<cover-view class="stopName"> 
-							{{ item.title }}
-						</cover-view>
-						<cover-view class="passbyLines">
-							本站线路
-						</cover-view>
-						<cover-view class="tickOff" @tap="tickOff(item.id)">
-							打卡
-						</cover-view>
-					</cover-view>
-				</template>
-			</cover-view> -->
 			<view class="relocate">
 				<uni-icons custom-prefix="iconfont" type="icon-dingwei" size="30" @click="relocate"></uni-icons>
 			</view>

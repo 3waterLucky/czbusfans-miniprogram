@@ -4,7 +4,8 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "潮巴园",
-				"navigationBarBackgroundColor": "#ffaa00"
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -12,6 +13,7 @@
 			"style" :                                                                                    
 			{
 					"navigationBarTitleText": "巴迷天地",
+					"navigationBarBackgroundColor": "#ffaa00",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -29,6 +31,7 @@
 			"style" :                                                                                    
 			{
 					"navigationBarTitleText": "线路大全",
+					"navigationBarBackgroundColor": "#ffaa00",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -37,6 +40,7 @@
 			"style" :                                                                                    
 			{
 					"navigationBarTitleText": "修改个人信息",
+					"navigationBarBackgroundColor": "#ffaa00",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -45,6 +49,7 @@
 			"style" :                                                                                    
 			{
 					"navigationBarTitleText": "问题反馈",
+					"navigationBarBackgroundColor": "#ffaa00",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -53,6 +58,7 @@
 			"style" :                                                                                    
 			{
 					"navigationBarTitleText": "站点定位",
+					"navigationBarBackgroundColor": "#ffaa00",
 					"enablePullDownRefresh": false
 			}
 		},
@@ -61,9 +67,19 @@
 				"style" :                                                                                    
 				{
 						"navigationBarTitleText": "关于我们",
+						"navigationBarBackgroundColor": "#ffaa00",
 						"enablePullDownRefresh": false
 				}
 				
+		},
+		{
+			"path" : "pages/Admin/Admin",
+			"style" :                                                                                    
+			{
+					"navigationBarTitleText": "管理中心",
+					"navigationBarBackgroundColor": "#ffaa00",
+					"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {

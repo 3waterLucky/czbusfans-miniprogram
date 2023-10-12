@@ -3,7 +3,8 @@ import { submitInfo, getInfo, uploadAvatar } from '../api/user.js'
 const state = {
 	userLocation: {},
 	avatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
-	nickName: '游客'
+	nickName: '游客',
+	isAdmin: 0
 }
 
 const actions = {
@@ -43,6 +44,9 @@ const actions = {
 	},
 	updateAvatar({ commit }) {
 		commit('UPDATEAVATAR')
+	},
+	getUserAuth({ commit }, isAdmin) {
+		commit('GETUSERAUTH', isAdmin)
 	}
 }
 
@@ -55,20 +59,16 @@ const mutations = {
 		state.nickName = data.nickName
 		console.log(state, 'SETUSERINFO')
 	},
-	GETUSERINFO(state) {
-	// 	console.log('GETUSERINFO mutation', JSON.stringify(data))
-	// 	let userData = uni.getStorageSync('userData')
-	// 	if (userData) {
-	// 		userData = JSON.parse(userData)
-	// 	}
-	// 	state.avatar = userData?.avatar || data.avatar
-	// 	state.nickName = userData?.nickName || data.nickName
+	GETUSERINFO(state, data) {
 		console.log('getuserInfo mutation')
 		state.avatar = uni.getStorageSync('avatar')
 		state.nickName = uni.getStorageSync('nickName')
 	},
 	UPDATEAVATAR(state) {
 		state.avatar = uni.getStorageSync('avatar')
+	},
+	GETUSERAUTH(state, isAdmin) {
+		state.isAdmin = isAdmin
 	}
 }
 

@@ -2,9 +2,9 @@
 import store from '../store/index.js'
 
 const homeWifi = '192.168.1.2'
-const schoolWifi = '10.10.244.98'
+const schoolWifi = '10.10.109.146'
 const cellPhone = '172.20.10.3'
-export const baseUrl = 'http://' + homeWifi + ':3000'
+export const baseUrl = 'http://' + schoolWifi + ':3000'
 
 // 服务器保存头像
 export const uploadAvatar = (tempPath) => 
@@ -56,13 +56,10 @@ export const getInfo = (openid, ret) => {
 	}).then((res) => {
 		console.log('getInfo', res)
 		ret.nickName = res.data.nickName
-		// 使用storage存储头像的地址
-		// uni.setStorageSync('avatar', res.data.avatar)
 		uni.setStorageSync('nickName', res.data.nickName)
-		
+		store.dispatch('getUserAuth', res.data.isAdmin)
 		// 下载头像存储到本地
 		uni.downloadFile({
-			// url: baseUrl + '/images/avatars/' + uni.getStorageSync('openid') + '.jpeg',
 			url: res.data.avatar,
 			success: (res) => {
 				console.log('downloadFile success', res)
@@ -71,7 +68,6 @@ export const getInfo = (openid, ret) => {
 				ret.avatar = path
 				uni.setStorageSync('avatar', path)
 				store.dispatch('updateAvatar')
-				// uni.setStorageSync('userData', JSON.stringify({ nickName: ret.nickName, avatar: ret.avatar }))
 				console.log('In getInfo, ret: ', ret)
 			}
 		})

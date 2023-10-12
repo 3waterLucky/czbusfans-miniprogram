@@ -16,7 +16,7 @@
 			<view class="options-item about" @click="toAboutUs">
 				关于我们
 			</view>
-			<view class="options-item admin">
+			<view class="options-item admin" @click="toAdmin" v-if="isAdmin">
 				管理员入口
 			</view>
 		</view>
@@ -35,7 +35,8 @@
 		computed: {
 			...mapState({
 				avatarUrl: state => state.user.avatar,
-				nickName: state => state.user.nickName
+				nickName: state => state.user.nickName,
+				isAdmin: state => state.user.isAdmin
 			})
 		},
 		methods: {
@@ -52,6 +53,11 @@
 			toAboutUs() {
 				uni.navigateTo({
 					url: '/pages/AboutUs/AboutUs'
+				})
+			},
+			toAdmin() {
+				uni.navigateTo({
+					url: '/pages/Admin/Admin'
 				})
 			}
 		},
