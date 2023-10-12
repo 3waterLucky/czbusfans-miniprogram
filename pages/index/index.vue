@@ -23,19 +23,19 @@
 		
 		<!-- 推荐菜单栏 -->
 		<uni-grid class="recommend" :column="4" :highlight="true" @change="handleClickGrid">
-			<uni-grid-item>
+			<uni-grid-item :index="0" :key="0">
 				<view class="grid-item-box" style="background-color: #fff;">
 					<img src="../../static/images/定位打卡.png" alt="">
 					<text class="text">站点地图</text>
 				</view>
 			</uni-grid-item>
-			<uni-grid-item>
+			<uni-grid-item :index="1" :key="1">
 				<view class="grid-item-box" style="background-color: #fff;">
 					<img src="../../static/images/12306.png" alt="">
 					<text class="text">铁路专区</text>
 				</view>
 			</uni-grid-item>
-			<uni-grid-item v-for="(item, index) in 6" :index="index" :key="index">
+			<uni-grid-item v-for="(item, index) in 6" :index="index + 2" :key="index">
 				<view class="grid-item-box" style="background-color: #fff;">
 					<uni-icons type="image" :size="30" color="green" />
 					<text class="text">敬请期待</text>
