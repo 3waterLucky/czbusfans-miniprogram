@@ -37,6 +37,9 @@
 			},
 			// 提交头像和昵称到服务器
 			submitInfo() {
+				uni.showLoading({
+					title: '保存中'
+				})
 				// 获取input的值，由于昵称既可以自动填充也可以自行输入，需要用此方法获取input的value值
 				uni.createSelectorQuery().select('.nickName').fields({
 					properties: ['value']
@@ -48,20 +51,10 @@
 						this.nickName = res.value
 					}
 				}).exec(() => {
-					// 将临时头像存储在本地
-					// uni.getFileSystemManager().saveFile({
-					// 	tempFilePath: this.avatarUrl,
-					// 	success:(res) => {
-					// 		this.avatarUrl = res.savedFilePath
-					// 	}
-					// })
-					console.log('In submitInfo, this.nickName: ', this.nickName)
-					
 					const data = {
 						nickName: this.nickName
 					}
 					console.log('dispatch: setUserInfo')
-					// Todo: 测试返回值
 					this.$store.dispatch('setUserInfo', data).then(res => {
 						if (res == 'success') {
 							console.log('uploadAvatar')
@@ -70,6 +63,7 @@
 									console.log('uploadAvatar success')
 									console.log('getUserInfo')
 									this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+									uni.hideLoading()
 									uni.showToast({
 										icon: 'success',
 										title: '保存成功'
@@ -78,7 +72,7 @@
 							} else {
 								console.log('getUserInfo')
 								this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
-								// this.$bus.$emit('updateUserInfo')
+								uni.hideLoading()
 								uni.showToast({
 									icon: 'success',
 									title: '保存成功'
@@ -86,6 +80,7 @@
 							}
 						}
 					}, err => {
+						uni.hideLoading()
 						uni.showToast({
 							icon: 'error',
 							title: '操作失败'

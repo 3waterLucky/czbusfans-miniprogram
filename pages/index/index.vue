@@ -102,7 +102,8 @@
 		},
 		methods: {
 			handleClickGrid(e) {
-				if (e.detail.index == 0) {
+				console.log(e.detail)
+				if (e.detail.index === 0) {
 					uni.navigateTo({
 						url: '/pages/StopsMap/StopsMap'
 					})

@@ -24,7 +24,7 @@
 			<button class="buttons-item tickOff" @click="tickOff">
 				打卡
 			</button>
-			<button class="buttons-item navToStop">导航至该站点</button>
+			<button class="buttons-item stopPic">站点图片</button>
 		</view>
 	</view>
 		
@@ -77,7 +77,12 @@
 		methods: {
 			// 打卡
 			async tickOff() {
+				uni.showLoading({
+					title: '打卡中',
+					mask: true
+				})
 				if (!this.userLocation || !this.userLocation.latitude || !this.userLocation.longitude) {
+					uni.hideLoading()
 					uni.showToast({
 						icon: 'error',
 						title: '获取定位失败！'
@@ -88,14 +93,20 @@
 					latitude: this.userLocation.latitude,
 					longitude: this.userLocation.longitude
 				}
-				const res = await getStopCoord(this.stopId)
-				const to = [res.data]	// 此处注意to和from的格式不同
-				console.log('站点定位', to)
 				const showFailToast = (msg) => {
 					uni.showToast({
 						icon: 'error',
 						title: msg
 					})
+				}
+				try {
+					const res = await getStopCoord(this.stopId)
+					const to = [res.data]	// 此处注意to和from的格式不同
+					console.log('站点定位', to)
+				} catch(err) {
+					uni.hideLoading()
+					showFailToast('打卡失败')
+					return
 				}
 				// 计算直线距离
 				qqmapsdk.calculateDistance({
@@ -107,6 +118,7 @@
 						const dist = res.result.elements[0].distance
 						if (dist <= 50) {
 							tickOff(this.stopId).then((res) => {
+								uni.hideLoading()
 								if (res.data.message == 'success') {
 									this.$emit('tickOffSuccess')
 									uni.showToast({
@@ -114,14 +126,19 @@
 										title: '打卡成功！'
 									})
 								} else {
-									showFailToast('打卡失败')
+									showFailToast(res.data.message)
 								}
+							}, err => {
+								uni.hideLoading()
+								showFailToast('打卡失败')
 							})
 						} else {
+							uni.hideLoading()
 							showFailToast('与站点距离过远')
 						}
 					},
 					fail() {
+						uni.hideLoading()
 						showFailToast('获取距离失败')
 					}
 				})
@@ -208,6 +225,7 @@
 			
 			.buttons-item  {
 				font-size: 18px;
+				width: 28vw;
 				background-color: #ffaa7f;
 				color: #fff;
 				line-height: 38px;

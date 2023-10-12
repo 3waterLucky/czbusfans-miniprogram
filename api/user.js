@@ -3,7 +3,7 @@ import store from '../store/index.js'
 
 const homeWifi = '192.168.1.2'
 const schoolWifi = '10.10.244.98'
-const cellPhone = ''
+const cellPhone = '172.20.10.3'
 export const baseUrl = 'http://' + homeWifi + ':3000'
 
 // 服务器保存头像
