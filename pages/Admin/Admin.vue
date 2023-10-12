@@ -2,6 +2,7 @@
 	<view>
 		<TopNavBar :navItems="navItems" @changePage="changePage"></TopNavBar>
 		<manageLines v-show="activeTab == 0"></manageLines>
+		<manageIndex v-show="activeTab == 1"></manageIndex>
 	</view>
 </template>
 

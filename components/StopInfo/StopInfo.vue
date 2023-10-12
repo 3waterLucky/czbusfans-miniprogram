@@ -99,9 +99,10 @@
 						title: msg
 					})
 				}
+				const to = []
 				try {
 					const res = await getStopCoord(this.stopId)
-					const to = [res.data]	// 此处注意to和from的格式不同
+					to[0] = res.data	// 此处注意to和from的格式不同
 					console.log('站点定位', to)
 				} catch(err) {
 					uni.hideLoading()
