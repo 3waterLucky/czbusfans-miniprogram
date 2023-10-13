@@ -1,8 +1,10 @@
 <template>
-	<view>
+	<view class="container">
 		<TopNavBar :navItems="navItems" @changePage="changePage"></TopNavBar>
-		<manageLines v-show="activeTab == 0"></manageLines>
-		<manageIndex v-show="activeTab == 1"></manageIndex>
+		<view class="pageView">
+			<manageLines v-show="activeTab == 0"></manageLines>
+			<manageIndex v-show="activeTab == 1"></manageIndex>
+		</view>
 	</view>
 </template>
 
@@ -22,8 +24,16 @@
 	}
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 	Page {
-		background-color: #eee;
+		
+		.container {
+			background-color: #eee;
+			
+			.pageView {
+				background-color: #fff;
+			}
+		}
+		
 	}
 </style>

@@ -22,14 +22,26 @@ export const getStopCoord = (stopId) =>
 	})
 	
 	// 打卡
-	export const tickOff = (stopId) => 
-		uni.request({
-			url: baseUrl + '/map/tickOff',
-			method: 'POST',
-			header: {
-				openid: uni.getStorageSync('openid')
-			},
-			data: {
-				stopId
-			}
-		})
+	// export const tickOff = (stopId) => 
+	// 	uni.request({
+	// 		url: baseUrl + '/map/tickOff',
+	// 		method: 'POST',
+	// 		header: {
+	// 			openid: uni.getStorageSync('openid')
+	// 		},
+	// 		data: {
+	// 			stopId
+	// 		}
+	// 	})
+		
+export const tickOff = (from, stopId) => uni.request({
+	url: baseUrl + '/map/tickOff',
+	method: 'POST',
+	header: {
+		openid: uni.getStorageSync('openid')
+	},
+	data: {
+		from,
+		stopId
+	}
+})

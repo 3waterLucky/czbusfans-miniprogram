@@ -2,9 +2,9 @@
 import store from '../store/index.js'
 
 const homeWifi = '192.168.1.2'
-const schoolWifi = '10.10.109.146'
+const schoolWifi = '10.10.244.98'
 const cellPhone = '172.20.10.3'
-export const baseUrl = 'http://' + homeWifi + ':3000'
+export const baseUrl = 'http://' + cellPhone + ':3000'
 
 // 服务器保存头像
 export const uploadAvatar = (tempPath) => 
@@ -25,11 +25,6 @@ export const wxLogin = (code) =>
 		data: {
 			code
 		},
-		// success: (res) => {
-			// uni.setStorageSync('openid', res.data.openid)
-			// store.dispatch('getUserInfo', res.data.openid)
-			// console.log('wxLogin dispatch getUserInfo', uni.getStorageSync('openid'))
-		// }
 	})
 
 

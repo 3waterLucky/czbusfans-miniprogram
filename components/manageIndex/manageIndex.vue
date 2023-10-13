@@ -3,12 +3,13 @@
 		<TopNavBar :navItems="navItems" :fontColor="'#5555ff'" :borderColor="'#5555ff'" @changePage="changePage"></TopNavBar>
 		<view class="pageView">
 			<view class="editCarousel" v-show="showPage === 0">
-				<view class="addNew">
+				<view class="addNewCarousel">
 					<view class="articleTitle">
 						文章标题
 						<input class="articleTitleText" type="text">
 					</view>
 					<view class="articleUrl">
+						URL
 						<input class="articleUrlText" type="text" name="" id="">
 					</view>
 					<view class="articlePic">
@@ -62,5 +63,33 @@
 </script>
 
 <style lang="less">
-
+	.pageView {
+		
+		.editCarousel {
+			
+			.addNewCarousel {
+				
+				.inputText {
+					height: 30px;
+					line-height: 30px;
+					background-color: #fff;
+					border: 1px solid #000;
+				}
+				
+				.articleTitle {
+					
+					.articleTitleText {
+						.inputText();
+					}
+				}
+				
+				.articleUrl {
+					
+					.articleUrlText {
+						.inputText();
+					}
+				}
+			}
+		}
+	}
 </style>

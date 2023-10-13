@@ -32,10 +32,6 @@
 
 <script>
 	import { getStopCoord, tickOff } from '../../api/map.js'
-	const QQMapWX = require('../../libs/qqMap/qqmap-wx-jssdk.js')
-	var qqmapsdk = new QQMapWX({
-	  key: 'WFFBZ-WNHK5-J6FIW-IKSHY-W2N6K-EVFAJ' // 腾讯位置服务里的KEY
-	});
 	export default {
 		name:"StopInfo",
 		data() {
@@ -99,50 +95,58 @@
 						title: msg
 					})
 				}
-				const to = []
 				try {
-					const res = await getStopCoord(this.stopId)
-					to[0] = res.data	// 此处注意to和from的格式不同
-					console.log('站点定位', to)
+					const res = await tickOff(from, this.stopId)
+					if (res.data.message == 'success') {
+						uni.hideLoading()
+						this.$emit('tickOffSuccess')
+						uni.showToast({
+							icon: 'success',
+							title: '打卡成功！'
+						})
+					} else {
+						uni.hideLoading()
+						showFailToast(res.data.message)
+					}
 				} catch(err) {
 					uni.hideLoading()
 					showFailToast('打卡失败')
 					return
 				}
-				// 计算直线距离
-				qqmapsdk.calculateDistance({
-					mode: 'straight',
-					from,
-					to,
-					success:(res) => {
-						console.log('calDistanceRes is: ', res)
-						const dist = res.result.elements[0].distance
-						if (dist <= 50) {
-							tickOff(this.stopId).then((res) => {
-								uni.hideLoading()
-								if (res.data.message == 'success') {
-									this.$emit('tickOffSuccess')
-									uni.showToast({
-										icon: 'success',
-										title: '打卡成功！'
-									})
-								} else {
-									showFailToast(res.data.message)
-								}
-							}, err => {
-								uni.hideLoading()
-								showFailToast('打卡失败')
-							})
-						} else {
-							uni.hideLoading()
-							showFailToast('与站点距离过远')
-						}
-					},
-					fail() {
-						uni.hideLoading()
-						showFailToast('获取距离失败')
-					}
-				})
+				// // 计算直线距离
+				// qqmapsdk.calculateDistance({
+				// 	mode: 'straight',
+				// 	from,
+				// 	to,
+				// 	success:(res) => {
+				// 		console.log('calDistanceRes is: ', res)
+				// 		const dist = res.result.elements[0].distance
+				// 		if (dist <= 50) {
+				// 			tickOff(this.stopId).then((res) => {
+				// 				uni.hideLoading()
+				// 				if (res.data.message == 'success') {
+				// 					this.$emit('tickOffSuccess')
+				// 					uni.showToast({
+				// 						icon: 'success',
+				// 						title: '打卡成功！'
+				// 					})
+				// 				} else {
+				// 					showFailToast(res.data.message)
+				// 				}
+				// 			}, err => {
+				// 				uni.hideLoading()
+				// 				showFailToast('打卡失败')
+				// 			})
+				// 		} else {
+				// 			uni.hideLoading()
+				// 			showFailToast('与站点距离过远')
+				// 		}
+				// 	},
+				// 	fail() {
+				// 		uni.hideLoading()
+				// 		showFailToast('获取距离失败')
+				// 	}
+				// })
 			},
 		},
 	}
