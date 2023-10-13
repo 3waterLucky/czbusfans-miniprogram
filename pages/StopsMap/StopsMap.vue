@@ -21,7 +21,7 @@
 			:tickOffTimes="selectedStopTickOffTimes"
 			:userLocation="userLocation"
 			:class="{ showPopup: showPopup }"
-			@tickOffSuccess="addTickOffTimes"
+			@tickOffSuccess="handleTickOffSuccess"
 		></StopInfo>
 	</view>
 </template>
@@ -122,8 +122,9 @@
 					console.log('false', e)
 				}
 			},
-			addTickOffTimes() {
+			handleTickOffSuccess() {
 				this.selectedStopTickOffTimes++
+				// 若打卡站点原为红色marker，改为绿色marker
 				if (this.selectedStopTickOffTimes === 1) {
 					this.createMarkers()
 				}

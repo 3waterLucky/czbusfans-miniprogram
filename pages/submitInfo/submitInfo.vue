@@ -28,12 +28,6 @@
 			onChooseAvatar(e) {
 				const { avatarUrl } = e.detail
 				this.avatarUrl = avatarUrl
-				// uni.getFileSystemManager().saveFile({
-				// 	tempFilePath: avatarUrl,
-				// 	success:(res) => {
-				// 		this.avatarUrl = res.savedFilePath
-				// 	}
-				// })
 			},
 			// 提交头像和昵称到服务器
 			submitInfo() {

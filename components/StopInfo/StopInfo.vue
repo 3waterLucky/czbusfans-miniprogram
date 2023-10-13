@@ -72,81 +72,45 @@
 		},
 		methods: {
 			// 打卡
-			async tickOff() {
+			tickOff() {
 				uni.showLoading({
 					title: '打卡中',
 					mask: true
 				})
-				if (!this.userLocation || !this.userLocation.latitude || !this.userLocation.longitude) {
-					uni.hideLoading()
-					uni.showToast({
-						icon: 'error',
-						title: '获取定位失败！'
-					})
-					return
-				}
-				const from = {
-					latitude: this.userLocation.latitude,
-					longitude: this.userLocation.longitude
-				}
 				const showFailToast = (msg) => {
 					uni.showToast({
 						icon: 'error',
 						title: msg
 					})
 				}
-				try {
-					const res = await tickOff(from, this.stopId)
-					if (res.data.message == 'success') {
-						uni.hideLoading()
-						this.$emit('tickOffSuccess')
-						uni.showToast({
-							icon: 'success',
-							title: '打卡成功！'
-						})
-					} else {
-						uni.hideLoading()
-						showFailToast(res.data.message)
+				// 获取当前用户定位
+				this.$store.dispatch('getUserLocation').then(async() => {
+					const from = {
+						latitude: this.userLocation.latitude,
+						longitude: this.userLocation.longitude
 					}
-				} catch(err) {
+					try {
+						const res = await tickOff(from, this.stopId)
+						if (res.data.message == 'success') {
+							uni.hideLoading()
+							this.$emit('tickOffSuccess')
+							uni.showToast({
+								icon: 'success',
+								title: '打卡成功！'
+							})
+						} else {
+							uni.hideLoading()
+							showFailToast(res.data.message)
+						}
+					} catch(err) {
+						uni.hideLoading()
+						showFailToast('打卡失败')
+						return
+					}
+				}, err => {
 					uni.hideLoading()
-					showFailToast('打卡失败')
-					return
-				}
-				// // 计算直线距离
-				// qqmapsdk.calculateDistance({
-				// 	mode: 'straight',
-				// 	from,
-				// 	to,
-				// 	success:(res) => {
-				// 		console.log('calDistanceRes is: ', res)
-				// 		const dist = res.result.elements[0].distance
-				// 		if (dist <= 50) {
-				// 			tickOff(this.stopId).then((res) => {
-				// 				uni.hideLoading()
-				// 				if (res.data.message == 'success') {
-				// 					this.$emit('tickOffSuccess')
-				// 					uni.showToast({
-				// 						icon: 'success',
-				// 						title: '打卡成功！'
-				// 					})
-				// 				} else {
-				// 					showFailToast(res.data.message)
-				// 				}
-				// 			}, err => {
-				// 				uni.hideLoading()
-				// 				showFailToast('打卡失败')
-				// 			})
-				// 		} else {
-				// 			uni.hideLoading()
-				// 			showFailToast('与站点距离过远')
-				// 		}
-				// 	},
-				// 	fail() {
-				// 		uni.hideLoading()
-				// 		showFailToast('获取距离失败')
-				// 	}
-				// })
+					showFailToast('获取定位失败')
+				})
 			},
 		},
 	}

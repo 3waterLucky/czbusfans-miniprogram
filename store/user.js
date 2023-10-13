@@ -9,17 +9,20 @@ const state = {
 
 const actions = {
 	getUserLocation({ commit }) {
-		console.log('action')
-		uni.getLocation({
-			type: 'gcj02',
-			isHighAccuracy: true,
-			success(res) {
-				commit('GETUSERLOCATION', res)
-				console.log('location accuracy: ', res.accuracy)
-			},
-			fail(err) {
-				console.log(err)
-			}
+		return new Promise((resolve, reject) => {
+			uni.getLocation({
+				type: 'gcj02',
+				isHighAccuracy: true,
+				success(res) {
+					commit('GETUSERLOCATION', res)
+					console.log('location accuracy: ', res.accuracy)
+					resolve('success')
+				},
+				fail(err) {
+					console.log(err)
+					reject('fail')
+				}
+			})
 		})
 	},
 	setUserInfo({ commit }, data) {
