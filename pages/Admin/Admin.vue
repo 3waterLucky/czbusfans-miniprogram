@@ -31,7 +31,7 @@
 			background-color: #eee;
 			
 			.pageView {
-				background-color: #fff;
+				
 			}
 		}
 		
