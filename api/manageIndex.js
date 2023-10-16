@@ -22,3 +22,9 @@ export const uploadImage = (tempFilePath, insertId) =>
 			insertId
 		}
 	})
+
+export const getCarousel = () => 
+	uni.request({
+		url: baseUrl + '/carousel/get',
+		method: 'GET'
+	})

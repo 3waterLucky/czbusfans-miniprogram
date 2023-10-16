@@ -81,7 +81,16 @@
 					"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/GzhWebSite/GzhWebSite",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "潮巴园",

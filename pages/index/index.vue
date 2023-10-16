@@ -10,12 +10,13 @@
 				:duration="1000"
 			>
 				<swiper-item class="swiper-item" 
-					v-for="(image, index) in imageList" 
+					v-for="(item, index) in carousel" 
+					@click="toGzhWebSite(item.url)"
 					:key="index"
 				>
-					<img :src="image" alt="">
+					<img :src="'http://192.168.1.2:3000' + item.image" alt="">
 					<view class="title">
-						文章标题{{ index }}
+						{{ item.title }}
 					</view>
 				</swiper-item>
 			</swiper>
@@ -65,14 +66,11 @@
 </template>
 
 <script>
+	import { getCarousel } from '../../api/manageIndex.js'
 	export default {
 		data() {
 			return {
-				imageList: [
-					'../../static/images/cr400af.jpg',
-					'../../static/images/fqh.jpg',
-					'../../static/images/K4byd.jpg'
-				],
+				carousel: [],
 				news: [
 					{
 						title: '【停运信息】受台风影响，9月5日潮州公交调整情况',
@@ -98,7 +96,10 @@
 			}
 		},
 		onLoad() {
-
+			getCarousel().then(res => {
+				console.log(res.data)
+				this.carousel = res.data.carousel
+			})
 		},
 		methods: {
 			handleClickGrid(e) {
@@ -108,6 +109,11 @@
 						url: '/pages/StopsMap/StopsMap'
 					})
 				}
+			},
+			toGzhWebSite(url) {
+				uni.navigateTo({
+					url: `/pages/GzhWebSite/GzhWebSite?url=${url}`
+				})
 			}
 		}
 	}
