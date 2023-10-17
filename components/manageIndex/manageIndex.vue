@@ -3,27 +3,36 @@
 		<TopNavBar :navItems="navItems" :fontColor="'#5555ff'" :borderColor="'#5555ff'" @changePage="changePage"></TopNavBar>
 		<view class="pageView">
 			<view class="editCarousel" v-show="showPage === 0">
-				<view class="addNewCarousel">
-					<uni-section class="addNewCarousel-title" title="新增轮播图" titleFontSize="16px" titleColor="#5555ff" type="line"></uni-section>
-					<view class="articleTitle">
-						<text class="addNewCarousel-item-text">文章标题</text>
-						<view class="inputBox">
-							<input class="articleTitleText" type="text">
+				<!-- 新增轮播图卡片 -->
+				<view class="edit-box">
+					<view class="addNewCarousel">
+						<uni-section class="addNewCarousel-title" title="新增轮播图" titleFontSize="16px" titleColor="#5555ff" type="line"></uni-section>
+						<view class="articleTitle">
+							<text class="addNewCarousel-item-text">文章标题</text>
+							<view class="inputBox">
+								<input class="articleTitleText" type="text">
+							</view>
 						</view>
-					</view>
-					<view class="articleUrl">
-							<text class="addNewCarousel-item-text">URL</text>
-						<view class="inputBox">
-							<input class="articleUrlText" type="text" name="" id="">
+						<view class="articleUrl">
+								<text class="addNewCarousel-item-text">URL</text>
+							<view class="inputBox">
+								<input class="articleUrlText" type="text" name="" id="">
+							</view>
 						</view>
+						<view class="articlePic">
+							<button class="choosePic" @click="choosePic">选择封面图</button>
+						</view>
+						<view class="showArticlePic" v-if="newPicTempFile !== ''">
+							<image class="showArticlePic-image" :src="newPicTempFile" alt="">
+						</view>
+						<button class="submitNewCarousel" @click="submitNewCarousel">提交</button>
 					</view>
-					<view class="articlePic">
-						<button class="choosePic" @click="choosePic">选择封面图</button>
+				</view>
+				<view class="edit-box">
+					<view class="draggableCarousel">
+						<uni-section class="addNewCarousel-title" title="编辑轮播图" titleFontSize="16px" titleColor="#5555ff" type="line"></uni-section>
+						
 					</view>
-					<view class="showArticlePic" v-if="newPicTempFile !== ''">
-						<image class="showArticlePic-image" :src="newPicTempFile" alt="">
-					</view>
-					<button class="submitNewCarousel" @click="submitNewCarousel">提交</button>
 				</view>
 			</view>
 			<view class="editNotice" v-show="showPage === 1">
@@ -169,9 +178,12 @@
 		.editCarousel {
 			width: 100%;
 			height: calc(100vh - 70px);
-			position: relative;
+			// position: relative;
 			background-color: #eee;
 			
+			.edit-box {
+				position: relative;
+			}
 
 			.addNewCarousel {
 				width: 90%;
@@ -261,6 +273,11 @@
 					color: #fff;
 					background-color: #5555ff;
 				}
+			}
+			
+			.draggableCarousel {
+				.addNewCarousel();
+				.pageView-item-common();
 			}
 		}
 	}

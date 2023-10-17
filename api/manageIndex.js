@@ -1,12 +1,9 @@
-import { baseUrl } from './user.js'
+// 主页展示信息相关API
 
 export const addNewArticle = (title, url) => 
 	uni.request({
-		url: baseUrl + '/carousel/add',
+		url: '/carousel/add',
 		method: 'POST',
-		header: {
-			openid: uni.getStorageSync('openid')
-		},
 		data: {
 			title,
 			url
@@ -15,7 +12,7 @@ export const addNewArticle = (title, url) =>
 	
 export const uploadImage = (tempFilePath, insertId) => 
 	uni.uploadFile({
-		url: baseUrl + '/carousel/uploadImage',
+		url: '/carousel/uploadImage',
 		filePath: tempFilePath,
 		name: 'carouselImage',
 		formData: {
@@ -25,6 +22,6 @@ export const uploadImage = (tempFilePath, insertId) =>
 
 export const getCarousel = () => 
 	uni.request({
-		url: baseUrl + '/carousel/get',
+		url: '/carousel/get',
 		method: 'GET'
 	})

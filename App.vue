@@ -30,6 +30,26 @@
 					})
 				}
 			})
+			const homeWifi = '192.168.1.2'
+			const schoolWifi = '10.10.244.98'
+			const cellPhone = '172.20.10.3'
+			const baseUrl = 'http://' + homeWifi + ':3000'
+			uni.addInterceptor('request', {
+				invoke(args) {
+					args.url = baseUrl + args.url
+					args.header = {
+						openid: uni.getStorageSync('openid')
+					}
+				}
+			})
+			uni.addInterceptor('uploadFile', {
+				invoke(args) {
+					args.url = baseUrl + args.url
+					args.header = {
+						openid: uni.getStorageSync('openid')
+					}
+				}
+			})
 		},
 		onShow: function() {
 			console.log('App Show')

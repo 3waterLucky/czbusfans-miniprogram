@@ -9,18 +9,15 @@ export const baseUrl = 'http://' + homeWifi + ':3000'
 // 服务器保存头像
 export const uploadAvatar = (tempPath) => 
 	uni.uploadFile({
-		url: baseUrl + '/user/uploadAvatar',
+		url: '/user/uploadAvatar',
 		filePath: tempPath,
 		name: 'avatar',
-		header: {
-			openid: uni.getStorageSync('openid')	// 带上openid，便于服务端存储时设置唯一的文件名
-		}
 	})
 
 // 登录并将openid存储在本地
 export const wxLogin = (code) => 
 	uni.request({
-		url: baseUrl + '/user/login',
+		url: '/user/login',
 		method: 'GET',
 		data: {
 			code
@@ -31,7 +28,7 @@ export const wxLogin = (code) =>
 // 提交个人信息
 export const submitInfo = (data) =>  
 	uni.request({
-		url: baseUrl + '/user/submitInfo',
+		url: '/user/submitInfo',
 		method: 'POST',
 		data: {
 			openid: uni.getStorageSync('openid'),
@@ -43,7 +40,7 @@ export const submitInfo = (data) =>
 // 获取个人信息（头像、昵称）
 export const getInfo = (openid, ret) => {
 	return uni.request({
-		url: baseUrl + '/user/getInfo',
+		url: '/user/getInfo',
 		method: 'GET',
 		data: {
 			openid

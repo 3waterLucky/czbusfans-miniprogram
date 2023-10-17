@@ -32,11 +32,41 @@
 			</uni-grid-item>
 			<uni-grid-item :index="1" :key="1">
 				<view class="grid-item-box" style="background-color: #fff;">
+					<img src="../../static/images/shuaka.png" alt="">
+					<text class="text">支付攻略</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item :index="1" :key="1">
+				<view class="grid-item-box" style="background-color: #fff;">
+					<img src="../../static/images/gongjiaoche.png" alt="">
+					<text class="text">车型一览</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item :index="3" :key="3">
+				<view class="grid-item-box" style="background-color: #fff;">
+					<img src="../../static/images/chengshi.png" alt="">
+					<text class="text">跨市交通</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item :index="4" :key="4">
+				<view class="grid-item-box" style="background-color: #fff;">
+					<img src="../../static/images/dongche.png" alt="">
+					<text class="text">高铁接驳</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item :index="5" :key="5">
+				<view class="grid-item-box" style="background-color: #fff;">
 					<img src="../../static/images/12306.png" alt="">
 					<text class="text">铁路专区</text>
 				</view>
 			</uni-grid-item>
-			<uni-grid-item v-for="(item, index) in 6" :index="index + 2" :key="index">
+			<uni-grid-item :index="6" :key="6">
+				<view class="grid-item-box" style="background-color: #fff;">
+					<img src="../../static/images/jingpin.png" alt="">
+					<text class="text">往期精华</text>
+				</view>
+			</uni-grid-item>
+			<uni-grid-item :index="7" :key="7">
 				<view class="grid-item-box" style="background-color: #fff;">
 					<uni-icons type="image" :size="30" color="green" />
 					<text class="text">敬请期待</text>
@@ -179,11 +209,16 @@
 			}
 
 			.title {
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 2;
+				overflow: hidden;
+				text-overflow: ellipsis;
 				position: absolute;
-				width: 100%;
-				height: 25px;
+				width: calc(75vw - 20px);
 				bottom: 0;
 				padding-left: 10px;
+				padding-right: 10px;
 				font-size: 16px;
 				line-height: 25px;
 				background-color: rgba(0, 0, 0, .5);

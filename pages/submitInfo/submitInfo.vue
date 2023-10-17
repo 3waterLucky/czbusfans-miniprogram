@@ -82,11 +82,6 @@
 					})
 				});
 			},
-			// 填写昵称
-			// setNickName(e) {
-			// 	console.log(e)
-			// 	this.nickName = e.detail.value
-			// }
 		}
 	}
 </script>
