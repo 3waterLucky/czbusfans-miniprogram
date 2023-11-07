@@ -27,9 +27,11 @@
 		methods: {
 			toDetail(line) {
 				let { lineNo } = line
-				uni.navigateTo({
-					url: `./LineDetail/LineDetail?lineNo=${lineNo}`
-				})
+				setTimeout(() => {
+					uni.navigateTo({
+						url: `./LineDetail/LineDetail?lineNo=${lineNo}`,
+					})
+				}, 500)
 			}
 		},
 		onLoad() {
@@ -44,7 +46,7 @@
 		display: flex;
 		align-items: center;
 		flex-direction: column;
-		background-color: #eee;
+		background-color: #ddd;
 		padding-bottom: 10px;
 		
 		.lineCard {

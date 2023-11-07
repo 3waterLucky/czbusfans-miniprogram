@@ -36,7 +36,7 @@
 					<text class="text">扫码乘车</text>
 				</view>
 			</uni-grid-item>
-			<uni-grid-item :index="1" :key="1">
+			<uni-grid-item :index="2" :key="2">
 				<view class="grid-item-box" style="background-color: #fff;">
 					<image src="../../static/images/gongjiaoche.png" alt="">
 					<text class="text">车型一览</text>

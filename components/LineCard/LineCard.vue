@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="container"  :style="{ '--clr': color }">
+		<view class="container" :style="{ '--clr': color, '--deg': deg }" @click="couponMove">
 			<view class="lineNo">
 				<view class="lineNo-inner">
 					<view class="circle"></view>
@@ -30,6 +30,11 @@
 <script>
 	export default {
 		props: { lineInfo: Object },
+		data() {
+			return {
+				deg: 0
+			}
+		},
 		computed: {
 			color() {
 				let ret = ''
@@ -61,6 +66,14 @@
 				}
 				return ret
 			}
+		},
+		methods: {
+			couponMove() {
+				this.deg = '10deg'
+				setTimeout(() => {
+					this.deg = '0'
+				}, 1000)
+			}
 		}
 	}
 </script>
@@ -71,16 +84,41 @@
 		height: 80px;
 		width: 95vw;
 		border-radius: 10px;
-		background-color: #fff;
-		overflow: hidden;
+		background-color: #ddd;
 		box-shadow: -4px 4px 2px #bbb;
 		var: --clr;
+		
+		&::before {
+			content: '';
+			width: 30px;
+			height: 15px;
+			border-radius: 0 0 15px 15px;
+			position: absolute;
+			background-color: #ddd;
+			z-index: 9999;
+			left: 85px;
+			top: 0;
+		}
+		
+		&::after {
+			content: '';
+			width: 30px;
+			height: 15px;
+			border-radius: 15px 15px 0 0;
+			position: absolute;
+			background-color: #ddd;
+			z-index: 9999;
+			left: 85px;
+			bottom: 0;
+		}
 		
 		.lineNo {
 			float: left;
 			height: 100%;
 			width: 100px;
 			background-image: linear-gradient(to right, var(--clr) , 90%, #fff);
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
 			
 			.lineNo-inner {
 				position: relative;
@@ -125,6 +163,10 @@
 			height: 100%;
 			width: calc(95vw - 180px);
 			font-size: 16px;
+			background-image: radial-gradient(circle at right, #ddd 4px, white 0);
+			background-position: 100% 19%;
+			background-size: 100% 12px;
+			background-repeat: repeat;
 		}
 		
 		.carImg {
@@ -134,12 +176,33 @@
 			line-height: 80px;
 			text-align: center;
 			color: #fff;
-			border-left: 6px dotted var(--clr);
+			background-color: #bbb;
+			transform: rotate(var(--deg));
+			transform-origin: left bottom;
+			transition: transform .7s ease-in;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+			overflow: hidden;
 			
 			image {
 				display: block;
 				width: 100%;
 				height: 100%;
+				position: relative;
+				
+				&::before {
+					position: absolute;
+					left: 0;
+					right: 0;
+					content: '';
+					width: 100%;
+					height: 100%;
+					z-index: 9999;
+					background-image: radial-gradient(circle at left, #ddd 4px, transparent 0);
+					background-position: 100% 19%;
+					background-size: 100% 12px;
+					background-repeat: repeat;
+				}
 			}
 		}
 	}
