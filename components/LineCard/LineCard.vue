@@ -148,7 +148,7 @@
 					height: 10px;
 					border-radius: 5px;
 					box-shadow: inset -3px -3px 1px #666;
-					background-color: #fff;
+					background-color: #ddd;
 				}
 			}
 		}
