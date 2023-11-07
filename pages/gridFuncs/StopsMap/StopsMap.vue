@@ -57,7 +57,7 @@
 						let id = item.stopId
 						let latitude = item.latitude
 						let longitude = item.longitude
-						let iconPath = '../../static/images/redStop.png'
+						let iconPath = '../../../static/images/redStop.png'
 						return {
 							id,
 							latitude,
@@ -71,7 +71,7 @@
 						let id = item.stopId
 						let latitude = item.latitude
 						let longitude = item.longitude
-						let iconPath = '../../static/images/greenStop.png'
+						let iconPath = '../../../static/images/greenStop.png'
 						return {
 							id,
 							latitude,

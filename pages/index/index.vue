@@ -12,7 +12,7 @@
 				<swiper-item class="swiper-item" 
 					v-for="(item, index) in carousel" 
 					@click="toGzhWebSite(item.url)"
-					:key="index"
+					:key="item.id"
 				>
 					<img :src="'http://192.168.1.2:3000' + item.image" alt="">
 					<view class="title">
@@ -26,53 +26,58 @@
 		<uni-grid class="recommend" :column="4" :highlight="true" @change="handleClickGrid">
 			<uni-grid-item :index="0" :key="0">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/定位打卡.png" alt="">
+					<image src="../../static/images/定位打卡.png" alt="">
 					<text class="text">站点地图</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="1" :key="1">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/shuaka.png" alt="">
-					<text class="text">支付攻略</text>
+					<image src="../../static/images/scan.png" alt="">
+					<text class="text">扫码乘车</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="1" :key="1">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/gongjiaoche.png" alt="">
+					<image src="../../static/images/gongjiaoche.png" alt="">
 					<text class="text">车型一览</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="3" :key="3">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/chengshi.png" alt="">
+					<image src="../../static/images/chengshi.png" alt="">
 					<text class="text">跨市交通</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="4" :key="4">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/dongche.png" alt="">
+					<image src="../../static/images/dongche.png" alt="">
 					<text class="text">高铁接驳</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="5" :key="5">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/12306.png" alt="">
+					<image src="../../static/images/12306.png" alt="">
 					<text class="text">铁路专区</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="6" :key="6">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<img src="../../static/images/jingpin.png" alt="">
-					<text class="text">往期精华</text>
+					<image src="../../static/images/signin.png" alt="">
+					<text class="text">每日签到</text>
 				</view>
 			</uni-grid-item>
 			<uni-grid-item :index="7" :key="7">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<uni-icons type="image" :size="30" color="green" />
-					<text class="text">敬请期待</text>
+					<image src="../../static/images/activity.png" alt="">
+					<text class="text">活动中心</text>
 				</view>
 			</uni-grid-item>
 		</uni-grid>
+		
+		<!-- 欢迎文字 -->
+		<view class="welcome" :class="{ 'welcome-close': welcomeClose }" v-if="showWelcome">
+			<text class="welcome-text">欢迎来到潮巴园</text>
+		</view>
 		
 		<!-- 公告栏 -->
 		<uni-section class="notice" title="NEWS" titleFontSize="16px">
@@ -90,7 +95,7 @@
 		
 		<!-- 引导关注 -->
 		<view class="follow">
-			<img src="../../static/images/follow1.png" alt="">
+			<image src="../../static/images/follow1.png" alt="" show-menu-by-longpress="true">
 		</view>
 	</view>
 </template>
@@ -122,7 +127,9 @@
 						title: '【停运通知】台风来袭，公交线路有这些变化……',
 						date: '2023-07-26'
 					},
-				]
+				],
+				welcomeClose: false,
+				showWelcome: true
 			}
 		},
 		onLoad() {
@@ -131,20 +138,45 @@
 				this.carousel = res.data.carousel
 			})
 		},
+		onReady() {
+			setTimeout(() => {
+				this.welcomeClose = true
+				setTimeout(() => {
+					this.showWelcome = false
+				}, 250)
+			}, 4000)
+		},
 		methods: {
 			handleClickGrid(e) {
-				console.log(e.detail)
-				if (e.detail.index === 0) {
-					uni.navigateTo({
-						url: '/pages/StopsMap/StopsMap'
-					})
+				switch (e.detail.index) {
+					case 0:
+						uni.navigateTo({
+							url: '/pages/gridFuncs/StopsMap/StopsMap'
+						})
+						break
+					case 1:
+						uni.navigateTo({
+							url: '/pages/gridFuncs/ScanCode/ScanCode'
+						})
+						break
+					case 6:
+						uni.navigateTo({
+							url: '/pages/gridFuncs/SignIn/SignIn'
+						})
+						break
+					default:
+						uni.showToast({
+							icon: 'none',
+							title: '敬请期待...'
+						})
+						break
 				}
 			},
 			toGzhWebSite(url) {
 				uni.navigateTo({
 					url: `/pages/GzhWebSite/GzhWebSite?url=${url}`
 				})
-			}
+			},
 		}
 	}
 </script>
@@ -178,13 +210,13 @@
 
 	.header {
 		width: 100%;
-		height: calc(75vw * 9 / 16);
+		height: calc(75vw * 2 / 3);
 		position: relative;
 		margin-bottom: 10px;
 
 		.bg {
 			width: 100%;
-			height: calc(75vw * 9 / 16 / 18 * 13);
+			height: calc(75vw * 2 / 3 / 18 * 13);
 			background-color: #ffaa00;
 			border-radius: 0 0 30px 30px;
 		}
@@ -192,7 +224,7 @@
 		.swiper {
 			position: absolute;
 			width:75vw;
-			height: calc(75vw * 9 / 16);
+			height: calc(75vw * 2 / 3);
 			top: 0;
 			left: 50%;
 			border-radius: 10px;
@@ -244,7 +276,8 @@
 			padding: 15px 0;
 		}
 		
-		img {
+		image {
+			display: block;
 			height: 30px;
 			width: 30px;
 		}
@@ -252,6 +285,55 @@
 		.text {
 			font-size: 14px;
 			margin-top: 5px;
+		}
+	}
+	
+	.welcome {
+		width: 100%;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 10px;
+		animation: boxShowUp 1.5s forwards;
+		transform: translateY(0);
+		
+		.welcome-text {
+			width: 100%;
+			background-image: linear-gradient(to right, red 10%, orange,  green, blue, indigo, violet);
+			color: transparent;
+			text-align: center;
+			font-size: 30px;
+			line-height: 40px;
+			font-weight: 600;
+			background-clip: text;
+			animation: textShowUp 3s forwards;
+		}
+	}
+	
+	.welcome-close {
+		transform: translateY(-40px);
+		margin-bottom: -40px;
+		transition: .25s linear;
+	}
+	
+	@keyframes boxShowUp {
+		from {
+			filter: contrast(50);
+		}
+		to {
+			filter: contrast(1);
+		}
+	}
+	
+	@keyframes textShowUp {
+		from {
+			letter-spacing: -50px;
+			filter: blur(10px);
+		}
+		to {
+			letter-spacing: 10px;
+			filter: blur(0);
 		}
 	}
 	
@@ -324,7 +406,8 @@
 		border-radius: 10vw;
 		overflow: hidden;
 		
-		img {
+		image {
+			display: block;
 			width: 100%;
 			height: 100%;
 		}

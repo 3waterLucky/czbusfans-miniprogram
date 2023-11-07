@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		{{ lineNo }}
 	</view>
 </template>
 
@@ -8,15 +8,15 @@
 	export default {
 		data() {
 			return {
-				
-			}
+				lineNo: 0
+			};
 		},
-		methods: {
-			
+		onLoad(option) {
+			this.lineNo = option.lineNo
 		}
 	}
 </script>
 
-<style>
+<style lang="less">
 
 </style>

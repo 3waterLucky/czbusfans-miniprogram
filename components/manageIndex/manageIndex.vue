@@ -31,7 +31,11 @@
 				<view class="edit-box">
 					<view class="draggableCarousel">
 						<uni-section class="addNewCarousel-title" title="编辑轮播图" titleFontSize="16px" titleColor="#5555ff" type="line"></uni-section>
-						
+						<movable-area class="movable-area">
+							<movable-view class="movable-view" v-for="(item, index) in carousel" :key="item.id" direction="vertical">
+								文章标题
+							</movable-view>
+						</movable-area>
 					</view>
 				</view>
 			</view>
@@ -43,7 +47,7 @@
 </template>
 
 <script>
-	import { addNewArticle, uploadImage } from '../../api/manageIndex.js'
+	import { addNewArticle, uploadImage, getCarousel } from '../../api/manageIndex.js'
 	export default {
 		name:"manageIndex",
 		data() {
@@ -54,6 +58,7 @@
 				newArticleURL: '',
 				newPicTempFile: '',
 				insertId: 0,
+				carousel: []
 			};
 		},
 		methods: {
@@ -154,6 +159,15 @@
 					})
 				})
 			},
+			updateCarousel() {
+				getCarousel().then(res => {
+					this.carousel = res.data.carousel
+				})
+			}
+		},
+		created() {
+			console.log('onLoad')
+			this.updateCarousel()
 		}
 	}
 </script>
@@ -169,9 +183,6 @@
 		
 		
 		.pageView-item-common {
-			position: absolute;
-			left: 50%;
-			transform: translateX(-50%);	
 			background-color: #fff;
 		}
 		
@@ -182,7 +193,9 @@
 			background-color: #eee;
 			
 			.edit-box {
-				position: relative;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 
 			.addNewCarousel {
@@ -278,6 +291,23 @@
 			.draggableCarousel {
 				.addNewCarousel();
 				.pageView-item-common();
+				
+				.movable-area {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					width: 100%;
+					min-height: 200px;
+					
+					.movable-view {
+						position: static;
+						display: block;
+						width: 90%;
+						height: 30px;
+						background-color: #55aa7f;
+						margin-bottom: 10px;
+					}
+				}
 			}
 		}
 	}

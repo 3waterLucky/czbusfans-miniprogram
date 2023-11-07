@@ -33,7 +33,7 @@
 			const homeWifi = '192.168.1.2'
 			const schoolWifi = '10.10.244.98'
 			const cellPhone = '172.20.10.3'
-			const baseUrl = 'http://' + homeWifi + ':3000'
+			const baseUrl = 'http://' + homeWifi + ':3000/api'
 			uni.addInterceptor('request', {
 				invoke(args) {
 					args.url = baseUrl + args.url

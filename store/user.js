@@ -38,9 +38,9 @@ const actions = {
 			})
 		})
 	},
-	getUserInfo({ commit }, openid) {
+	getUserInfo({ commit }) {
 		const result = {}
-		getInfo(openid, result).then(() => {
+		getInfo(result).then(() => {
 			console.log('in action: getUserInfo result came')
 			commit('GETUSERINFO')
 		})

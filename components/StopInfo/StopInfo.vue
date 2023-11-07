@@ -127,7 +127,7 @@
 		
 		.busStop {
 			height: 60px;
-			padding-left: 30px;
+			padding-left: 10px;
 			margin-bottom: 2px;
 			
 			.busPic {
@@ -168,7 +168,7 @@
 					.tickOffTimes {
 						float: right;
 						height: 20px;
-						padding-right: 20px;
+						// padding-right: 20px;
 						font-size: 14px;
 						color: #666;
 						line-height: 20px;

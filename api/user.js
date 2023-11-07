@@ -38,13 +38,10 @@ export const submitInfo = (data) =>
 	})
 
 // 获取个人信息（头像、昵称）
-export const getInfo = (openid, ret) => {
+export const getInfo = (ret) => {
 	return uni.request({
 		url: '/user/getInfo',
 		method: 'GET',
-		data: {
-			openid
-		},
 	}).then((res) => {
 		console.log('getInfo', res)
 		ret.nickName = res.data.nickName
@@ -65,3 +62,24 @@ export const getInfo = (openid, ret) => {
 		})
 	})
 }
+
+// 获取签到随机积分
+// export const getSignInScore = () => 
+// 	uni.request({
+// 		url: '/user/signinScore',
+// 		method: 'GET'
+// 	})
+
+// 签到
+export const signIn = () =>
+	uni.request({
+		url: '/user/signin',
+		method: 'POST',
+	})
+
+// 获取签到信息
+export const getSigninInfo = () =>
+	uni.request({
+		url: '/user/signinInfo',
+		method: 'GET'
+	})

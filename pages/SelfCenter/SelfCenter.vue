@@ -8,7 +8,7 @@
 		</view>
 		<view class="options">
 			<view class="options-item selfInfo" @click="toSelfInfo">
-				个人信息
+				修改信息
 			</view>
 			<view class="options-item feedback" @click="toBugReport">
 				问题反馈
@@ -42,28 +42,28 @@
 		methods: {
 			toSelfInfo() {
 				uni.navigateTo({
-					url: '/pages/submitInfo/submitInfo'
+					url: './submitInfo/submitInfo'
 				})
 			},
 			toBugReport() {
 				uni.navigateTo({
-					url: '/pages/BugReport/BugReport'
+					url: './BugReport/BugReport'
 				})
 			},
 			toAboutUs() {
 				uni.navigateTo({
-					url: '/pages/AboutUs/AboutUs'
+					url: './AboutUs/AboutUs'
 				})
 			},
 			toAdmin() {
 				uni.navigateTo({
-					url: '/pages/Admin/Admin'
+					url: './Admin/Admin'
 				})
 			}
 		},
 		onLoad() {
 			console.log('SelfCenter onLoad')
-			this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+			this.$store.dispatch('getUserInfo')
 			this.$bus.$on('updateUserInfo', () => {
 				console.log('on updateUserInfo')
 				this.$forceUpdate()

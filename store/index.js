@@ -3,13 +3,15 @@ import Vuex from 'vuex'
 import user from '@/store/user.js'
 import lines from '@/store/lines.js'
 import map from '@/store/map.js'
+import note from '@/store/note.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
 	modules: {
 		user,
 		lines,
-		map
+		map,
+		note
 	}
 })
 

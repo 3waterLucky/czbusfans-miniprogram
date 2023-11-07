@@ -15,7 +15,7 @@
 </template>
 
 <script>
-	import { uploadAvatar } from '../../api/user.js'
+	import { uploadAvatar } from '../../../api/user.js'
 	export default {
 		data() {
 			return {
@@ -56,7 +56,7 @@
 								uploadAvatar(this.avatarUrl).then(() => {
 									console.log('uploadAvatar success')
 									console.log('getUserInfo')
-									this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+									this.$store.dispatch('getUserInfo')
 									uni.hideLoading()
 									uni.showToast({
 										icon: 'success',
@@ -65,7 +65,7 @@
 								})
 							} else {
 								console.log('getUserInfo')
-								this.$store.dispatch('getUserInfo', uni.getStorageSync('openid'))
+								this.$store.dispatch('getUserInfo')
 								uni.hideLoading()
 								uni.showToast({
 									icon: 'success',

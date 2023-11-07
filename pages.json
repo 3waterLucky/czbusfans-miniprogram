@@ -9,88 +9,130 @@
 			}
 		},
 		{
-			"path" : "pages/BusFans/BusFans",
+			"path" : "pages/NoteShare/NoteShare",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "巴迷天地",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "巴迷天地",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path" : "pages/SelfCenter/SelfCenter",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "个人中心",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
 			"path" : "pages/BusLines/BusLines",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "线路大全",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "线路大全",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
-			"path" : "pages/submitInfo/submitInfo",
+			"path" : "pages/SelfCenter/submitInfo/submitInfo",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "修改个人信息",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "修改个人信息",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
 			}
 		},
 		{
-			"path" : "pages/BugReport/BugReport",
+			"path" : "pages/SelfCenter/BugReport/BugReport",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "问题反馈",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "问题反馈",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
 			}
 		},
 		{
-			"path" : "pages/StopsMap/StopsMap",
+			"path" : "pages/gridFuncs/StopsMap/StopsMap",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "站点定位",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "站点地图",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
-				"path" : "pages/AboutUs/AboutUs",
-				"style" :                                                                                    
-				{
-						"navigationBarTitleText": "关于我们",
-						"navigationBarBackgroundColor": "#ffaa00",
-						"enablePullDownRefresh": false
-				}
+			"path" : "pages/SelfCenter/AboutUs/AboutUs",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "关于我们",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
+			}
 				
 		},
 		{
-			"path" : "pages/Admin/Admin",
+			"path" : "pages/SelfCenter/Admin/Admin",
 			"style" :                                                                                    
 			{
-					"navigationBarTitleText": "管理中心",
-					"navigationBarBackgroundColor": "#ffaa00",
-					"enablePullDownRefresh": false
+				"navigationBarTitleText": "管理中心",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/GzhWebSite/GzhWebSite",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "潮巴园",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
+			}
+		},
+		{
+			"path" : "pages/gridFuncs/SignIn/SignIn",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "每日签到",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/gridFuncs/ScanCode/ScanCode",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "扫码乘车",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false
+			} 
+		},
+		{
+			"path" : "pages/gridFuncs/ScanCode/AliPay/AliPay",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "支付宝乘车攻略",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
+			}
+		},
+		{
+			"path" : "pages/BusLines/LineDetail/LineDetail",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "线路详情",
+				"navigationBarBackgroundColor": "#ffaa00",
+				"enablePullDownRefresh": false,
+				"homeButton": true
 			}
 		}
-	    ,{
-            "path" : "pages/GzhWebSite/GzhWebSite",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "潮巴园",
@@ -118,7 +160,7 @@
 			{
 				"iconPath": "static/images/xinwensudi.png",
 				"selectedIconPath": "static/images/bokexinwen.png",
-				"pagePath": "pages/BusFans/BusFans",
+				"pagePath": "pages/NoteShare/NoteShare",
 				"text": "巴迷天地"
 			},
 			{

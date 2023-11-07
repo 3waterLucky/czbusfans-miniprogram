@@ -1,16 +1,7 @@
 <template>
 	<view>
-		<view class="container">
-			<view class="lineNo" :class="{
-				'express': lineInfo.tag == 'express',
-				'normal': lineInfo.tag == 'normal',
-				'micro': lineInfo.tag == 'micro',
-				'raoping': lineInfo.tag == 'Raoping',
-				'intercity': lineInfo.tag == 'intercity',
-				'travel': lineInfo.tag == 'travel',
-				'temp': lineInfo.tag == 'temp',
-				'other': lineInfo.tag == 'other'
-			}">
+		<view class="container"  :style="{ '--clr': color }">
+			<view class="lineNo">
 				<view class="lineNo-inner">
 					<view class="circle"></view>
 					<view class="lineNo-text">
@@ -30,7 +21,7 @@
 				</view>
 			</view>
 			<view class="carImg">
-				<img src="../../static/images/K4byd.jpg" alt="">
+				<image :src="lineInfo.photo" alt="">
 			</view>
 		</view>
 	</view>
@@ -40,19 +31,36 @@
 	export default {
 		props: { lineInfo: Object },
 		computed: {
-			// 微信小程序不支持这种形式绑定class
-			// tagClassObj() {
-			// 	return {
-			// 		'express': this.lineInfo.tag == 'express',
-			// 		'normal': this.lineInfo.tag == 'normal',
-			// 		'micro': this.lineInfo.tag == 'micro',
-			// 		'raoping': this.lineInfo.tag == 'Raoping',
-			// 		'intercity': this.lineInfo.tag == 'intercity',
-			// 		'travel': this.lineInfo.tag == 'travel',
-			// 		'temp': this.lineInfo.tag == 'temp',
-			// 		'other': this.lineInfo.tag == 'other'
-			// 	}
-			// }
+			color() {
+				let ret = ''
+				switch(this.lineInfo.tag) {
+					case 'express':
+						ret = '#c387ff'
+						break
+					case 'normal':
+						ret = '#ffaa7f'
+						break
+					case 'micro':
+						ret = '#aaaa5a'
+						break
+					case 'Raoping':
+						ret = '#5f94ff'
+						break
+					case 'intercity':
+						ret = '#ff87a7'
+						break
+					case 'travel':
+						ret = '#ff0000'
+						break
+					case 'temp':
+						ret = '#ffff87'
+						break
+					case 'other':
+						ret = '#888'
+						break
+				}
+				return ret
+			}
 		}
 	}
 </script>
@@ -66,11 +74,13 @@
 		background-color: #fff;
 		overflow: hidden;
 		box-shadow: -4px 4px 2px #bbb;
+		var: --clr;
 		
 		.lineNo {
 			float: left;
 			height: 100%;
 			width: 100px;
+			background-image: linear-gradient(to right, var(--clr) , 90%, #fff);
 			
 			.lineNo-inner {
 				position: relative;
@@ -104,53 +114,7 @@
 				}
 			}
 		}
-		
-		.express {
-			background-image: linear-gradient(to right, #c387ff , 90%, #fff);
-			// background-color: #c387ff;
-		}
-		
-		.normal {
-			background-image: linear-gradient(to right, #ffaa7f , 90%, #fff);
-			// background-color: #ffaa7f;
-		}
-		
-		.micro {
-			background-image: linear-gradient(to right, #aaaa5a , 90%, #fff);
-			// background-color: #aaaa5a;
-		}
-		
-		.rural {
-			background-image: linear-gradient(to right, #67aa67 , 90%, #fff);
-			// background-color: #67aa67;
-		}
-		
-		.raoping {
-			background-image: linear-gradient(to right, #5f94ff , 90%, #fff);
-			// background-color: #5f94ff;
-		}
-		
-		.intercity {
-			background-image: linear-gradient(to right, #ff87a7 , 90%, #fff);
-			// background-color: #ff87a7;
-		}
-		
-		.travel {
-			background-image: linear-gradient(to right, #ff0000 , 90%, #fff);
-			// background-color: #ff0000;
-		}
-		
-		.temp {
-			background-image: linear-gradient(to right, #ffff87 , 90%, #fff);
-			// background-color: #ffff87;
-			color: #000;
-		}
-		
-		.other {
-			background-image: linear-gradient(to right, #888 , 90%, #fff);
-			// background-color: #888;
-		}
-		
+
 		.dest {
 			position: absolute;
 			right: 80px;
@@ -167,12 +131,13 @@
 			float: right;
 			height: 100%;
 			width: 80px;
-			background-color: #aa55ff;
 			line-height: 80px;
 			text-align: center;
 			color: #fff;
+			border-left: 6px dotted var(--clr);
 			
-			img {
+			image {
+				display: block;
 				width: 100%;
 				height: 100%;
 			}
