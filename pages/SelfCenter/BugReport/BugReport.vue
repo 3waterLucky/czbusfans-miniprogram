@@ -76,7 +76,7 @@
 			height: 25px;
 			text-decoration: underline;
 			font-size: 14px;
-			background-color: #ffaa00;
+			background-color: #ed7d31;
 			line-height: 25px;
 			color: #fff;
 		}
@@ -88,7 +88,7 @@
 		margin-top: 5px;
 		line-height: 40px;
 		color: #fff;
-		background-color: #ffaa00;
+		background-color: #ed7d31;
 	}
 	
 	.toFeedback-hover {

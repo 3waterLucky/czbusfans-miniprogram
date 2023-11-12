@@ -153,7 +153,7 @@
 			top: 0;
 			width: 100%;
 			height: 40px;
-			background-color: #ffaa00;
+			background-color: #ed7d31;
 			line-height: 40px;
 			color: #fff;
 			text-align: center;

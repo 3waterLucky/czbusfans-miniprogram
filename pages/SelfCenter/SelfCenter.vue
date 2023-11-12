@@ -81,7 +81,7 @@
 	.selfInform {
 		height: 150px;
 		padding: 20px;
-		background-color: #ffaa00;
+		background-color: #ed7d31;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

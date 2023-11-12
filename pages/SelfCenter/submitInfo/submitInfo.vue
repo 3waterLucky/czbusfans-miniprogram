@@ -125,7 +125,7 @@
 	.submit {
 		margin-top: 50px;
 		width: 160px;
-		background-color: #ffaa00;
+		background-color: #ed7d31;
 		color: #fff;
 	}
 	

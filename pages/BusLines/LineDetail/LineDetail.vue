@@ -57,7 +57,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="stopList">
+		<scroll-view class="stopList" scroll-y="true" enable-flex="true">
 			<view class="axis" v-show="!direction">
 				<view class="axis-item" v-for="(stop, index) in upStops" :key="index"></view>
 			</view>
@@ -74,7 +74,7 @@
 					{{ stop }}
 				</view>
 			</view>
-		</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -262,7 +262,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background-image: linear-gradient(#17a820 300rpx, 600rpx, #eee 1000rpx);
+		background-image: linear-gradient(#2e75b6 400rpx, 700rpx, #eee 1100rpx);
 		
 		.mainInfo {
 			width: 100%;
@@ -323,7 +323,7 @@
 				align-items: center;
 				background-color: #fff;
 				border-radius: 10px;
-				color: #888;
+				color: #2e75b6;
 				
 				.information-left {
 					width: 74%;
@@ -338,23 +338,20 @@
 					.serviceTime {
 						width: 100%;
 						height: 50%;
-						// background-color: pink;
 					}
 					
 					.price {
 						width: 100%;
 						height: 50%;
-						// background-color: skyblue;
 					}
 				}
 				
 				.tips {
 					width: 40px;
-					height: 80%;
+					height: 85%;
 					box-sizing: border-box;
-					border-radius: 20%;
+					border-radius: 8px;
 					border: 1px solid #888;
-					// background-color: #55ff00;
 					text-align: center;
 					line-height: 20px;
 					font-size: 12px;
@@ -363,7 +360,6 @@
 				.information-right {
 					width: 14%;
 					height: 100%;
-					// background-color: #ffaa00;
 					display: flex;
 					justify-content: center;
 					flex-wrap: wrap;
@@ -391,7 +387,7 @@
 		
 		.stopList {
 			width: 90%;
-			min-height: calc((100vh - 100px) * 0.9);
+			height: calc((100vh - 100px) * 0.9);
 			margin-top: 10px;
 			margin-bottom: 10px;
 			background-color: #fff;
@@ -401,12 +397,13 @@
 			.axis {
 				width: 25%;
 				height: 100%;
-				margin-top: 65rpx;
+				box-sizing: border-box;
+				padding-top: 65rpx;
 				
 				.axis-item {
 					width: 100%;
 					height: 70rpx;
-					border-right: 8rpx solid #ffaa00;
+					border-right: 8rpx solid #ed7d31;
 					position: relative;
 					
 					&:last-child {
@@ -421,13 +418,13 @@
 						width: 20rpx;
 						height: 20rpx;
 						border-radius: 50%;
-						border: 4rpx solid #17a820;
+						border: 4rpx solid #2e75b6;
 						background-color: #fff;
 					}
 					
 					&:first-child::after,
 					&:last-child::after{
-						border: 4rpx solid #c10c0c;
+						border: 4rpx solid #17a820;
 					}
 				}
 			}
@@ -435,7 +432,8 @@
 			.stops {
 				width: 75%;
 				height: 100%;
-				margin-top: 30rpx;
+				box-sizing: border-box;
+				padding-top: 30rpx;
 				
 				.stops-item {
 					width: 100%;

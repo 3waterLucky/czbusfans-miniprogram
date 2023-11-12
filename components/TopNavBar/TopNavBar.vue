@@ -32,12 +32,12 @@
 			fontColor: {
 				type: String,
 				required: false,
-				default: '#ffaa00'
+				default: '#ed7d31'
 			},
 			borderColor: {
 				type: String,
 				required: false,
-				default: '#ffaa00'
+				default: '#ed7d31'
 			}
 		},
 		computed: {

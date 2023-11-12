@@ -63,7 +63,7 @@
 			width: 100%;
 			font-size: 18px;
 			text-align: center;
-			color: #ffaa00;
+			color: #ed7d31;
 		}
 		
 		.choose {

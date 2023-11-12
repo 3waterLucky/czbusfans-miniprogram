@@ -217,7 +217,7 @@
 		.bg {
 			width: 100%;
 			height: calc(75vw * 2 / 3 / 18 * 13);
-			background-color: #ffaa00;
+			background-color: #ed7d31;
 			border-radius: 0 0 30px 30px;
 		}
 
@@ -345,7 +345,7 @@
 			height: 12px;
 			border-radius: 10px;
 			margin-right: 4px;
-			background-color: #ffaa00;
+			background-color: #ed7d31;
 		}
 		
 		.notice-body {
