@@ -26,7 +26,7 @@
 		<uni-grid class="recommend" :column="4" :highlight="true" @change="handleClickGrid">
 			<uni-grid-item :index="0" :key="0">
 				<view class="grid-item-box" style="background-color: #fff;">
-					<image src="../../static/images/定位打卡.png" alt="">
+					<image src="../../static/images/tickoff.png" alt="">
 					<text class="text">站点地图</text>
 				</view>
 			</uni-grid-item>

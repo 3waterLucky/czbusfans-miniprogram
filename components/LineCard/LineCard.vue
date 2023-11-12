@@ -20,8 +20,8 @@
 					{{ lineInfo.to }}
 				</view>
 			</view>
-			<view class="carImg">
-				<image :src="lineInfo.photo" alt="">
+			<view class="carImg" :style="{'--trans-time': transTime}">
+				<image :src="lineInfo.squarePhoto" alt="">
 			</view>
 		</view>
 	</view>
@@ -29,7 +29,10 @@
 
 <script>
 	export default {
-		props: { lineInfo: Object },
+		props: { 
+			lineInfo: Object,
+			transTime: String
+		},
 		data() {
 			return {
 				deg: 0
@@ -95,7 +98,7 @@
 			border-radius: 0 0 15px 15px;
 			position: absolute;
 			background-color: #ddd;
-			z-index: 9999;
+			z-index: 9998;
 			left: 85px;
 			top: 0;
 		}
@@ -107,7 +110,7 @@
 			border-radius: 15px 15px 0 0;
 			position: absolute;
 			background-color: #ddd;
-			z-index: 9999;
+			z-index: 9998;
 			left: 85px;
 			bottom: 0;
 		}
@@ -179,7 +182,7 @@
 			background-color: #bbb;
 			transform: rotate(var(--deg));
 			transform-origin: left bottom;
-			transition: transform .7s ease-in;
+			transition: transform var(--trans-time) ease-in;
 			border-top-right-radius: 10px;
 			border-bottom-right-radius: 10px;
 			overflow: hidden;

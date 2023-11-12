@@ -31,12 +31,13 @@
 	export default {
 		data() {
 			return {
-				stopsMarkers: [],
-				markedStopMarkers: [],
-				selectedStopId: 0,
-				selectedFullStopName: '',
-				selectedStopTickOffTimes: 0,
-				showPopup: false
+				stopsMarkers: [],				// 未打卡站点列表
+				markedStopMarkers: [],	// 已打卡站点列表
+				selectedStopId: 0,			// 选中的站点id
+				selectedFullStopName: '',			// 选中站点的全名
+				selectedStopTickOffTimes: 0,	// 选中站点的打卡次数
+				showPopup: false,				// 是否显示站点信息弹窗
+				enlargedMarker: {}			,// marker被放大的站点
 			};
 		},
 		computed: {
@@ -82,23 +83,51 @@
 						}
 					})
 					this._mapCtx.addMarkers({
-						markers: this.stopsMarkers.concat(this.markedStopMarkers)
+						markers: this.stopsMarkers.concat(this.markedStopMarkers),
+						clear: true
 					})
 				})
 			},
+			// 重定位至用户位置
 			relocate() {
 				this._mapCtx.moveToLocation().then(() => {
 					this._mapCtx.scale = 16
 				})
 			},
+			// 改变某个marker的大小
+			changeMarkerSize(stop, color, size) {
+				this._mapCtx.removeMarkers({
+					markerIds: [stop.stopId],
+					success:() => {
+						console.log(stop)
+						this._mapCtx.addMarkers({
+							markers: [{
+								id: stop.stopId,
+								latitude: stop.latitude,
+								longitude: stop.longitude,
+								iconPath: `../../../static/images/${color}Stop.png`,
+								width: size,
+								height: size,
+							}]
+						})
+					}
+				})
+			},
 			handleMarkertap(e) {
 				this.selectedStopId = e.detail.markerId
+				if (this.enlargedMarker.stopId) {
+					this.changeMarkerSize(this.enlargedMarker, this.selectedStopTickOffTimes ? 'green' : 'red', '20px')
+				}
 				let found = false
+				let selectedStop, color
 				for (const stop of this.stopsList) {
 					if (stop.stopId === this.selectedStopId) {
+						selectedStop = stop
 						this.selectedFullStopName = stop.stopName
 						this.selectedStopTickOffTimes = 0
+						this.enlargedMarker = stop
 						found = true
+						color = 'red'
 						break
 					}
 				}
@@ -107,10 +136,13 @@
 						if (stop.stopId === this.selectedStopId) {
 							this.selectedFullStopName = stop.stopName
 							this.selectedStopTickOffTimes = stop.tickOffTimes
+							this.enlargedMarker = stop
+							color = 'green'
 							break
 						}
 					}
 				}
+				this.changeMarkerSize(this.enlargedMarker, color, '40px')
 				setTimeout(() => {
 					console.log('true', e)
 					this.showPopup = true
@@ -119,6 +151,22 @@
 			closePopup(e) {
 				if (this.showPopup && e.type !== 'markertap') {
 					this.showPopup = false
+					let found = false
+					let color = this.selectedStopTickOffTimes ? 'green' : 'red'
+					for (const stop of this.stopsList) {
+						if (stop.stopId === this.selectedStopId) {
+							this.changeMarkerSize(stop, color,'20px')
+							break
+						}
+					}
+					if (!found) {
+						for (const stop of this.markedList) {
+							if (stop.stopId === this.selectedStopId) {
+								this.changeMarkerSize(stop, color,'20px')
+								break
+							}
+						}
+					}
 					console.log('false', e)
 				}
 			},
@@ -126,7 +174,13 @@
 				this.selectedStopTickOffTimes++
 				// 若打卡站点原为红色marker，改为绿色marker
 				if (this.selectedStopTickOffTimes === 1) {
-					this.createMarkers()
+					for (const stop of this.stopsList) {
+						if (stop.stopId === this.selectedStopId) {
+							this.changeMarkerSize(stop, 'green','40px')
+							this.$store.dispatch('getStopsList')
+							break
+						}
+					}
 				}
 			}
 		}

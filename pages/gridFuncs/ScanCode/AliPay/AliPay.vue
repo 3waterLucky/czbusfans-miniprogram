@@ -7,7 +7,7 @@
 					进入支付宝首页<br/>点击上方菜单中的“出行”
 				</view>
 				<image class="img" src="http://192.168.1.2:3000/images/alipay/1.png" mode="widthFix">
-				<canvas class="arrow" style="width: 30px; height: 80px;" canvas-id="arrow"></canvas>
+				<view class="swipeUp" :style="{'--size': size}"></view>
 			</swiper-item>
 			<swiper-item class="swiper-item">
 				<uni-section class="step" type="line" title="Step 2" titleFontSize="18px" titleColor="#1778FF"></uni-section>
@@ -15,7 +15,7 @@
 					确保城市选择为“潮州”<br/>点击下方“前往领取”
 				</view>
 				<image class="img" src="http://192.168.1.2:3000/images/alipay/2.png" mode="widthFix">
-				<view class="arrow"></view>
+				<view class="swipeUp" :style="{'--size': size}"></view>
 			</swiper-item>
 			<swiper-item class="swiper-item">
 				<uni-section class="step" type="line" title="Step 3" titleFontSize="18px" titleColor="#1778FF"></uni-section>
@@ -23,7 +23,7 @@
 					勾选同意协议<br/>点击“同意协议并领卡”<br/>输入支付密码
 				</view>
 				<image class="img" src="http://192.168.1.2:3000/images/alipay/3.png" mode="widthFix">
-				<view class="arrow"></view>
+				<view class="swipeUp" :style="{'--size': size}"></view>
 			</swiper-item>
 			<swiper-item class="swiper-item">
 				<uni-section class="step" type="line" title="Step 4" titleFontSize="18px" titleColor="#1778FF"></uni-section>
@@ -31,7 +31,7 @@
 					开通完成<br/>再次从首页进入“出行”时就会出现乘车码
 				</view>
 				<image class="img" src="http://192.168.1.2:3000/images/alipay/4.png" mode="widthFix">
-				<view class="arrow"></view>
+				<view class="swipeUp" :style="{'--size': size}"></view>
 			</swiper-item>
 			<swiper-item class="swiper-item">
 				<uni-section class="step" type="line" title="Step 5" titleFontSize="18px" titleColor="#1778FF"></uni-section>
@@ -48,21 +48,13 @@
 	export default {
 		data() {
 			return {
-				
+				size: '30px'
 			};
 		},
-		onReady() {
-			const ctx = uni.createCanvasContext('arrow')
-			console.log(ctx);
-			ctx.beginPath()
-			ctx.moveTo(0, 0)
-			ctx.lineTo(15, 12)
-			ctx.lineTo(30, 0)
-			ctx.lineTo(26, 0)
-			ctx.lineTo(15, 8)
-			ctx.lineTo(4, 0)
-			ctx.setFillStyle("#1778FF")
-			ctx.fill()
+		onLoad() {
+			setInterval(() => {
+				this.size = this.size === '30px' ? '25px' : '30px'
+			}, 800)
 		}
 	}
 </script>
@@ -74,6 +66,7 @@
 		background-color: #eee;
 		
 		.swiper-item {
+			position: relative;
 			width: 100%;
 			height: 100%;
 			display: flex;
@@ -97,10 +90,15 @@
 				margin-bottom: 60px;
 			}
 			
-			// .arrow {
-			// 	width: 30px;
-			// 	height: 80px;
-			// }
+			.swipeUp {
+				position: absolute;
+				bottom: 15px;
+				width: var(--size);
+				height: var(--size);
+				background-image: url('../../../../static/images/up.png');
+				background-size: contain;
+				transition: all .8s linear;
+			}
 		}
 	}
 </style>
