@@ -11,13 +11,13 @@
 			</view>
 			<view class="dest">
 				<view class="from">
-					{{ lineInfo.from }}
+					{{ lineInfo.dep }}
 				</view>
 				<view class="arrow">
 					<uni-icons custom-prefix="iconfont" type="icon-shangxiajiantou" size="16"></uni-icons>
 				</view>
 				<view class="to">
-					{{ lineInfo.to }}
+					{{ lineInfo.dest }}
 				</view>
 			</view>
 			<view class="carImg" :style="{'--trans-time': transTime}">

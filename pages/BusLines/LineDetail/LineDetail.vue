@@ -44,7 +44,7 @@
 						票价：{{ line.price }}元
 					</view>
 				</view>
-				<view class="tips">
+				<view class="tips-btn" @click="showTips = true">
 					温馨<br/>提示
 				</view>
 				<view class="information-right">
@@ -59,23 +59,69 @@
 		</view>
 		<scroll-view class="stopList" scroll-y="true" enable-flex="true">
 			<view class="axis" v-show="!direction">
-				<view class="axis-item" v-for="(stop, index) in upStops" :key="index"></view>
+				<view class="axis-item" :class="{'chosen': showChoose == index}" v-for="(stop, index) in upStops" :key="index"></view>
 			</view>
 			<view class="axis" v-show="direction">
-				<view class="axis-item" v-for="(stop, index) in downStops" :key="index"></view>
+				<view class="axis-item" :class="{'chosen': showChoose == index}" v-for="(stop, index) in downStops" :key="index"></view>
 			</view>
 			<view class="stops" v-show="!direction">
 				<view class="stops-item" v-for="(stop, index) in upStops" :key="index">
-					{{ stop }}
+					<view class="stops-item-stopName" :class="{'chosen': showChoose == index}" @click="handleClickStop(index)">
+						{{ stop }}
+					</view>
+					<view class="stops-item-choose" v-if="showChoose == index">
+						<!-- 这个地方不知道为什么用v-if就可以，用v-show一开始可以，后来又不行了 -->
+						<view class="stops-item-choose-btn" @click="toStopMap(line.upStops[index])">
+							查看地图
+						</view>
+						<view class="stops-item-choose-btn" @click="openSameStopLines(line.upStops[index])">
+							同站线路
+						</view>
+					</view>
 				</view>
 			</view>
 			<view class="stops" v-show="direction">
 				<view class="stops-item" v-for="(stop, index) in downStops" :key="index">
-					{{ stop }}
+					<view class="stops-item-stopName" :class="{'chosen': showChoose == index}" @click="handleClickStop(index)">
+						{{ stop }}
+					</view>
+					<view class="stops-item-choose" v-if="showChoose == index">
+						<view class="stops-item-choose-btn" @click="toStopMap(line.downStops[index])">
+							查看地图
+						</view>
+						<view class="stops-item-choose-btn" @click="openSameStopLines(line.downStops[index])">
+							同站线路
+						</view>
+					</view>
 				</view>
 			</view>
 		</scroll-view>
+		<!-- 同站线路弹窗 -->
+		<view class="mask" v-show="showSameStopLines" @click="showSameStopLines = false">
+			<SameStopLines class="sameStopLines"
+				:stopId="selectedStopId" 
+				@close="showSameStopLines = false"
+
+			>
+			</SameStopLines>
+		</view>
+		<!-- 温馨提示弹窗 -->
+		<view class="mask" v-show="showTips" @click="showTips = false">
+			<view class="tips" @click.stop="">
+				<view class="tips-title">
+					温馨提示
+				</view>
+				<view class="tips-close" @click="showTips = false">
+					<image src="@/static/images/close.png" mode="widthFix"></image>
+				</view>
+				<scroll-view class="tips-bottom" scroll-y="true">
+					<view class="tips-item" v-for="(item, index) in line.tips" :key="index">
+						{{ index + 1 }}.&nbsp;{{ item }}
+					</view>
+				</scroll-view>
+		</view>
 	</view>
+</view>
 </template>
 
 <script>
@@ -90,15 +136,19 @@
 				scrollTime: '0',	// 滚动时间
 				timer: null		,		// 滚动定时器
 				upStops: [],			// 上下行站点名称
-				downStops: []
+				downStops: [],
+				showChoose: -1,		// 显示选项的站点下标
+				selectedStopId: 0,
+				showSameStopLines: false,
+				showTips: false
 			};
 		},
 		computed: {
 			dep() {
-				return this.direction ? this.line.to : this.line.from
+				return this.direction ? this.line.dest : this.line.dep
 			},
 			dest() {
-				return this.direction ? this.line.from : this.line.to
+				return this.direction ? this.line.dep : this.line.dest
 			},
 			lineNo() {
 				if (this.line.lineNo[this.line.lineNo.length - 1] === '路') {
@@ -174,6 +224,7 @@
 			// 换向
 			changeDirection() {
 				this.direction = !this.direction
+				this.showChoose = -1
 				clearInterval(this.timer)		// 清除滚动定时器
 				// 滚动的字体先归为到起始位置
 				let tempScrollTime = this.scrollTime
@@ -202,6 +253,22 @@
 						this.posLeftStart = temp
 					}, 100)
 				}, intervalTime)
+			},
+			handleClickStop(index) {
+				if (this.showChoose == index) {
+					this.showChoose = -1
+				} else {
+					this.showChoose = index
+				}
+			},
+			toStopMap(stopId) {
+				uni.navigateTo({
+					url: `/pages/gridFuncs/StopsMap/StopsMap?stopId=${stopId}`
+				})
+			},
+			openSameStopLines(stopId) {
+				this.selectedStopId = stopId
+				this.showSameStopLines = true
 			}
 		},
 		onLoad(option) {
@@ -232,6 +299,9 @@
 					if (this.leftScroll || this.rightScroll) {
 						this.startScroll()
 					}
+					if (option.direction == 1) {
+						this.changeDirection()
+					}
 				} else {
 					uni.showToast({
 						icon: 'none',
@@ -244,20 +314,13 @@
 				family: 'dianzhen',
 				source: 'http://192.168.1.2:3000/font/unifont-15.0.06.ttf'
 			})
-		},
-		onReady() {
-			const query = uni.createSelectorQuery()
-			query.selectAll('.electric-disp-text').fields({
-				size: true,
-			}).exec(res => {
-				console.log(res)
-			})
 		}
 	}
 </script>
 
 <style lang="less">
 	.container {
+		position: relative;
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
@@ -346,7 +409,7 @@
 					}
 				}
 				
-				.tips {
+				.tips-btn {
 					width: 40px;
 					height: 85%;
 					box-sizing: border-box;
@@ -427,6 +490,10 @@
 						border: 4rpx solid #17a820;
 					}
 				}
+				
+				.chosen {
+					height: 170rpx;
+				}
 			}
 			
 			.stops {
@@ -437,9 +504,101 @@
 				
 				.stops-item {
 					width: 100%;
-					height: 70rpx;
 					padding-left: 30rpx;
-					line-height: 70rpx;
+					
+					.stops-item-stopName {
+						width: 100%;
+						height: 70rpx;
+						line-height: 70rpx;
+					}
+					
+					.chosen {
+						font-weight: 600;
+					}
+					
+					.stops-item-choose {
+						width: 100%;
+						height: 100rpx;
+						display: flex;
+						align-items: center;
+						
+						.stops-item-choose-btn {
+							margin-right: 30rpx;
+							height: 90rpx;
+							line-height: 90rpx;
+							background-color: #ed7d31;
+							color: #fff;
+							padding-left: 20rpx;
+							padding-right: 20rpx;
+							border-radius: 10rpx;
+						}
+					}
+				}
+			}
+		}
+		
+		.mask {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100vh;
+			background-color: rgba(255, 255, 255, .7);
+			z-index: 9999;
+			
+			.sameStopLines {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				border: 1px solid #5555ff;
+			}
+			
+			.tips {
+				position: absolute;
+				width: 300px;
+				height: 300px;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				border: 1px solid #5555ff;
+				border-radius: 20px;
+				overflow: hidden;
+				
+				.tips-title {
+					width: 100%;
+					height: 50px;
+					line-height: 50px;
+					font-weight: 600;
+					text-align: center;
+					background-color: #5555ff;
+					color: #fff;
+				}
+				
+				.tips-close {
+					position: absolute;
+					right: 10px;
+					top: 10px;
+					width: 30px;
+					height: 30px;
+					
+					image {
+						display: block;
+						width: 100%;
+						height: 100%;
+					}
+				}
+				
+				.tips-bottom {
+					width: 100%;
+					height: 250px;
+					background-color: #fff;
+					
+					.tips-item {
+						box-sizing: border-box;
+						padding: 30rpx;
+						width: 100%;
+					}
 				}
 			}
 		}

@@ -20,7 +20,7 @@
 		</view>
 		<view class="boxLine"></view>
 		<view class="buttons">
-			<button class="buttons-item passbyLines">本站线路</button>
+			<button class="buttons-item passbyLines" @click="showSameStopLines">本站线路</button>
 			<button class="buttons-item tickOff" @click="tickOff">
 				打卡
 			</button>
@@ -31,12 +31,12 @@
 </template>
 
 <script>
-	import { getStopCoord, tickOff } from '../../api/map.js'
+	import { getStopCoord, tickOff } from '@/api/map.js'
 	export default {
 		name:"StopInfo",
 		data() {
 			return {
-				
+
 			};
 		},
 		props: {
@@ -55,6 +55,9 @@
 			userLocation: {
 				type: Object,
 				required: false
+			},
+			passbyLines: {
+				type: Array
 			}
 		},
 		computed: {
@@ -112,6 +115,9 @@
 					showFailToast('获取定位失败')
 				})
 			},
+			showSameStopLines() {
+				this.$emit('showSameStopLines')
+			}
 		},
 	}
 </script>

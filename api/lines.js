@@ -26,3 +26,13 @@ export const getStopName = (stopId) =>
 			stopId
 		}
 	})
+
+// 获取同站线路列表
+export const getSameStopLines = (stopId) =>
+	uni.request({
+		url: '/lines/sameStopLines',
+		method: 'GET',
+		data: {
+			stopId
+		}
+	})

@@ -22,7 +22,14 @@
 			:userLocation="userLocation"
 			:class="{ showPopup: showPopup }"
 			@tickOffSuccess="handleTickOffSuccess"
+			@showSameStopLines="showSameStopLines = true"
 		></StopInfo>
+		<SameStopLines class="sameStopLines" 
+			:stopId="selectedStopId" 
+			v-show="showSameStopLines" 
+			@close="showSameStopLines = false"
+		>
+		</SameStopLines>
 	</view>
 </template>
 
@@ -37,7 +44,9 @@
 				selectedFullStopName: '',			// 选中站点的全名
 				selectedStopTickOffTimes: 0,	// 选中站点的打卡次数
 				showPopup: false,				// 是否显示站点信息弹窗
-				enlargedMarker: {}			,// marker被放大的站点
+				enlargedMarker: {},			// marker被放大的站点
+				// sameStopLines: [],			// 同站线路列表
+				showSameStopLines: false
 			};
 		},
 		computed: {
@@ -47,7 +56,10 @@
 				markedList: state => state.map.markedList
 			})
 		},
-		onReady() {
+		onLoad(option) {
+			if (option.stopId !== undefined) {
+				this.selectedStopId = option.stopId
+			}
 			this.createMarkers()
 		},
 		methods: {
@@ -86,6 +98,14 @@
 						markers: this.stopsMarkers.concat(this.markedStopMarkers),
 						clear: true
 					})
+					if (this.selectedStopId) {
+						console.log('111', this.selectedStopId);
+						this.enlargeMarker()
+						this._mapCtx.moveToLocation({
+							longitude: this.enlargedMarker.longitude,
+							latitude: this.enlargedMarker.latitude
+						})
+					}
 				})
 			},
 			// 重定位至用户位置
@@ -96,10 +116,11 @@
 			},
 			// 改变某个marker的大小
 			changeMarkerSize(stop, color, size) {
+				console.log(stop.stopId)
 				this._mapCtx.removeMarkers({
 					markerIds: [stop.stopId],
 					success:() => {
-						console.log(stop)
+						console.log('changeMarkerSize success', stop)
 						this._mapCtx.addMarkers({
 							markers: [{
 								id: stop.stopId,
@@ -113,16 +134,16 @@
 					}
 				})
 			},
-			handleMarkertap(e) {
-				this.selectedStopId = e.detail.markerId
-				if (this.enlargedMarker.stopId) {
+			enlargeMarker() {
+				if (this.enlargedMarker?.stopId) {
 					this.changeMarkerSize(this.enlargedMarker, this.selectedStopTickOffTimes ? 'green' : 'red', '20px')
 				}
 				let found = false
-				let selectedStop, color
+				let color
+				console.log('222', this.stopsList)
 				for (const stop of this.stopsList) {
-					if (stop.stopId === this.selectedStopId) {
-						selectedStop = stop
+					if (stop.stopId == this.selectedStopId) {
+						console.log('found', stop.stopId)
 						this.selectedFullStopName = stop.stopName
 						this.selectedStopTickOffTimes = 0
 						this.enlargedMarker = stop
@@ -133,7 +154,7 @@
 				}
 				if (!found) {
 					for (const stop of this.markedList) {
-						if (stop.stopId === this.selectedStopId) {
+						if (stop.stopId == this.selectedStopId) {
 							this.selectedFullStopName = stop.stopName
 							this.selectedStopTickOffTimes = stop.tickOffTimes
 							this.enlargedMarker = stop
@@ -144,9 +165,12 @@
 				}
 				this.changeMarkerSize(this.enlargedMarker, color, '40px')
 				setTimeout(() => {
-					console.log('true', e)
 					this.showPopup = true
 				}, 10)
+			},
+			handleMarkertap(e) {
+				this.selectedStopId = e.detail.markerId
+				this.enlargeMarker()
 			},
 			closePopup(e) {
 				if (this.showPopup && e.type !== 'markertap') {
@@ -182,7 +206,7 @@
 						}
 					}
 				}
-			}
+			},
 		}
 	}
 </script>
@@ -219,7 +243,6 @@
 			border: 1px solid #ccc;
 			border-radius: 20px;
 			width: 150px;
-			// height: 100px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -276,4 +299,11 @@
 		transform: translateY(0);
 		transition: .25s linear;
 	}
+	
+	.sameStopLines {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		}
 </style>
