@@ -25,3 +25,9 @@ export const getCarousel = () =>
 		url: '/carousel/get',
 		method: 'GET'
 	})
+	
+export const getNotice = () => 
+	uni.request({
+		url: '/carousel/notice',
+		method: 'GET'
+	})

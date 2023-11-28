@@ -86,9 +86,13 @@
 				<view class="decoration"></view>
 			</template>
 			<view class="notice-body">
-				<view class="notice-item" v-for="(item, index) in news" :key="index">
-					<text class="notice-item-title">{{ item.title }}</text>
-					<text class="notice-item-date">{{ item.date }}</text>
+				<view class="notice-item" 
+					v-for="(item, index) in notice" 
+					@tap="toGzhWebSite(item.url)"
+					:key="index"
+				>
+					<text class="notice-item-title">【{{ item.tag }}】{{ item.title }}</text>
+					<text class="notice-item-date">{{ item.deliverDay }}</text>
 				</view>
 			</view>
 		</uni-section>
@@ -101,41 +105,36 @@
 </template>
 
 <script>
-	import { getCarousel } from '../../api/manageIndex.js'
+	import { getCarousel, getNotice } from '../../api/manageIndex.js'
 	export default {
 		data() {
 			return {
 				carousel: [],
-				news: [
-					{
-						title: '【停运信息】受台风影响，9月5日潮州公交调整情况',
-						date: '2023-09-05'
-					},
-					{
-						title: '市区十条公交线路班次大调整！',
-						date: '2023-08-18'
-					},
-					{
-						title: '【绕道！】途经潮汕路的线路或有调整！',
-						date: '2023-08-12'
-					},
-					{
-						title: '【线路恢复】鉴于台风对我市的影响逐渐减弱，全市公交线路自12:00起逐步恢复运营',
-						date: '2023-07-28'
-					},
-					{
-						title: '【停运通知】台风来袭，公交线路有这些变化……',
-						date: '2023-07-26'
-					},
-				],
+				notice: [],
 				welcomeClose: false,
 				showWelcome: true
 			}
 		},
 		onLoad() {
 			getCarousel().then(res => {
-				console.log(res.data)
-				this.carousel = res.data.carousel
+				if (res.data.code == 200) {
+					this.carousel = res.data.carousel
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: '获取轮播图失败'
+					})
+				}
+			})
+			getNotice().then(res => {
+				if (res.data.code == 200) {
+					this.notice = res.data.notice
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: '获取通知失败'
+					})
+				}
 			})
 		},
 		onReady() {
