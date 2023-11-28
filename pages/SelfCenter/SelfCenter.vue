@@ -62,12 +62,7 @@
 			}
 		},
 		onLoad() {
-			console.log('SelfCenter onLoad')
 			this.$store.dispatch('getUserInfo')
-			this.$bus.$on('updateUserInfo', () => {
-				console.log('on updateUserInfo')
-				this.$forceUpdate()
-			})
 		}
 	}
 </script>
@@ -81,7 +76,7 @@
 	.selfInform {
 		height: 150px;
 		padding: 20px;
-		background-color: #ed7d31;
+		background-color: #aae5f4;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -95,7 +90,7 @@
 		.nickName {
 			margin-top: 20px;
 			font-size: 22px;
-			color: #fff;
+			color: #fff7c5;
 		}
 	}
 	

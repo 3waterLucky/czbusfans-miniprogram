@@ -4,7 +4,8 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "潮巴园",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -13,8 +14,9 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "巴迷天地",
-				"navigationBarBackgroundColor": "#ed7d31",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -22,8 +24,10 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "个人中心",
-				"navigationBarBackgroundColor": "#ed7d31",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"disableScroll": true
 			}
 		},
 		{
@@ -31,7 +35,8 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "线路大全",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -40,9 +45,11 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "修改个人信息",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
-				"homeButton": true
+				"homeButton": true,
+				"disableScroll": true
 			}
 		},
 		{
@@ -50,9 +57,11 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "问题反馈",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
-				"homeButton": true
+				"homeButton": true,
+				"disableScroll": true
 			}
 		},
 		{
@@ -60,7 +69,8 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "站点地图",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -69,9 +79,11 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "关于我们",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
-				"homeButton": true
+				"homeButton": true,
+				"disableScroll": true
 			}
 				
 		},
@@ -80,7 +92,8 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "管理中心",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -89,7 +102,8 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "潮巴园",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
 				"homeButton": true
 			}
@@ -99,8 +113,10 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "每日签到",
-				"navigationBarBackgroundColor": "#ed7d31",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"disableScroll": true
 			}
 		},
 		{
@@ -108,8 +124,10 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "扫码乘车",
-				"navigationBarBackgroundColor": "#ed7d31",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"disableScroll": true
 			} 
 		},
 		{
@@ -117,9 +135,11 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "支付宝乘车攻略",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
-				"homeButton": true
+				"homeButton": true,
+				"disableScroll": true
 			}
 		},
 		{
@@ -127,9 +147,33 @@
 			"style" :                                                                                    
 			{
 				"navigationBarTitleText": "线路详情",
-				"navigationBarBackgroundColor": "#ed7d31",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"homeButton": true,
+				"disableScroll": true
+			}
+		},
+		{
+			"path" : "pages/NoteShare/CreatetNote/CreatetNote",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "创建笔记",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false,
 				"homeButton": true
+			}
+		},
+		{
+			"path" : "pages/gridFuncs/BusType/BusType",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "车型一览",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false,
+				"disableScroll": true
 			}
 		}
 	],
@@ -137,13 +181,15 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "潮巴园",
 		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTextStyle": "white",
 		"backgroundColor": "#F8F8F8"
 	},
 	"uniIdRouter": {},
 	"tabBar": {
-		"backgroundColor": "#e6e6e6",
-		"color": "#888",
-		"selectedColor": "#ed7d31",
+		// "backgroundColor": "#e6e6e6",
+		"backgroundColor": "#fff7c5",
+		"color": "#aae5f4",
+		"selectedColor": "#ffc357",
 		"list": [
 			{
 				"iconPath": "static/images/shouye-tianchong.png",
@@ -153,7 +199,7 @@
 			},
 			{
 				"iconPath": "static/images/gongjiao1.png",
-				"selectedIconPath": "static/images/gongjiao.png",
+				"selectedIconPath": "static/images/gongjiao2.png",
 				"pagePath": "pages/BusLines/BusLines",
 				"text": "线路大全"
 			},

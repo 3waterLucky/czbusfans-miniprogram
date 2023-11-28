@@ -65,7 +65,7 @@
 		
 		.image {
 			display: block;
-			width: 95%;
+			width: 342rpx;
 		}
 		
 		.title {
@@ -78,7 +78,7 @@
 			margin-top: 5px;
 			font-size: 15px;
 			font-weight: 600;
-			line-height: 23px;
+			line-height: 22px;
 		}
 		
 		.bottom {

@@ -21,7 +21,7 @@
 			</view>
 			{{ title }}
 		</view>
-		<view class="cards">
+		<scroll-view class="cards" scroll-y="true" enable-flex="true">
 			<LineCard class="lineCard" 
 				v-for="line in showLines" 
 				:lineInfo="line" 
@@ -30,7 +30,7 @@
 				@tap="toDetail(line)"
 			>
 			</LineCard>
-		</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -117,18 +117,18 @@
 				float: left;
 				width: 60%;
 				height: 100%;
-				background-color: #bbb;
+				background-color: #ffc357;
 				
 				.filter-left-item {
 					box-sizing: border-box;
 					width: 100%;
 					height: 40px;
 					padding-left: 10px;
-					background-color: #ddd;
+					background-color: #fff7c5;
 					line-height: 38px;
 					position: relative;
-					border-bottom: #bbb 2px solid;
-					border-right: #bbb 2px solid;
+					color: #4991ba;
+					border-bottom: #aae5f4 2px solid;
 					
 					&::after {
 						content: '>';
@@ -149,32 +149,32 @@
 		}
 		
 		.selector {
-			position: sticky;
-			top: 0;
+			position: relative;
 			width: 100%;
 			height: 40px;
-			background-color: #ed7d31;
+			background-color: #4991ba;
 			line-height: 40px;
-			color: #fff;
+			color: #fff7c5;
 			text-align: center;
 			
 			.filterButton {
 				position: absolute;
 				left: 10px;
-				top: 7px;
-				width: 24px;
-				height: 24px;
+				width: 40px;
+				height: 40px;
+				display: flex;
+				align-items: center;
 				
 				image {
 					display: block;
-					width: 100%;
-					height: 100%;
+					width: 50%;
 				}
 			}
 		}
 		
 		.cards {
-			min-height: 100vh;
+			width: 100%;
+			height: calc(100vh - 40px);
 			display: flex;
 			align-items: center;
 			flex-direction: column;

@@ -153,7 +153,7 @@
 			lineNo() {
 				if (this.line.lineNo[this.line.lineNo.length - 1] === '路') {
 					return this.line.lineNo.slice(0, -1)
-				} else if (this.line.lineNo[this.line.lineNo.length - 1] === '快线') {
+				} else if (this.line.lineNo.slice(-2) === '快线') {
 					return this.line.lineNo.slice(0, -2)
 				} else {
 					return this.line.lineNo
@@ -418,6 +418,7 @@
 					text-align: center;
 					line-height: 20px;
 					font-size: 12px;
+					text-decoration: underline;
 				}
 				
 				.information-right {
