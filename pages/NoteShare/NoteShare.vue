@@ -20,6 +20,7 @@
 				:authorName="item.authorName"
 				:likeNum="item.likeNum"
 				:key="item.id"
+				@tap="toDetail(item.id)"
 			></NoteCard>
 		</view>
 		<!-- 发布按钮 -->
@@ -80,6 +81,11 @@
 					this.rightHeight += h
 				}
 				console.log('after insert', this.leftHeight, this.rightHeight)
+			},
+			toDetail(id) {
+				uni.navigateTo({
+					url: `/pages/NoteShare/NoteDetail/NoteDetail?id=${id}`,
+				})
 			}
 		},
 		onLoad() {

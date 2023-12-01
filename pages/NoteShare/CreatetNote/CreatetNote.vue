@@ -4,7 +4,7 @@
 			<view class="dist-title">
 				板块分区
 			</view>
-			<scroll-view class="tags" scroll-x="true" enable-flex="true">
+			<scroll-view class="tags" scroll-x="true">
 				<view class="tags-item" 
 					v-for="(tag, index) in tags" 
 					:class="{ 'activeTag': selectedTag == index }"
@@ -24,12 +24,24 @@
 			@keyboardheightchange="changeHeight"
 		>
 		</textarea>
-		<scroll-view class="preview" v-if="img.length !== 0" scroll-x="true" enable-flex="true">
-			<image v-for="(item, index) in img" :src="item.tempFilePath" mode="scaleToFill" :key="index"></image>
+		<scroll-view class="preview" v-if="img.length !== 0" scroll-x="true">
+			<view class="preview-item" v-for="(item, index) in img" :key="index">
+				<image class="img" :src="item.tempFilePath" mode="scaleToFill"></image>
+				<image class="deleteImg" src="@/static/images/close.png" mode="scaleToFill" @tap="deleteImg(index)"></image>
+			</view>
 		</scroll-view>
 		<view class="options">
 			<view class="options-item" @click="chooseImg">
 				<image src="../../../static/images/album.png" mode="widthFix"></image>
+			</view>
+			<view class="textNum">
+				文字：<text :style="{'color': mainBody.length === 1000 ? '#ffc357' : '#000'}">{{ mainBody.length }}</text>/1000
+			</view>
+			<view class="picNum">
+				图片：<text :style="{'color': img.length === 9 || img.length === 0 ? '#ffc357' : '#000'}">{{ img.length }}</text>/9
+			</view>
+			<view class="submit" @click="submit">
+				发布
 			</view>
 		</view>
 	</view>
@@ -64,8 +76,71 @@
 					this.img = res.tempFiles
 				)
 			},
+			// 点击发布按钮
 			submit() {
-				
+				if (this.selectedTag == null) {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择板块分区！'
+					})
+					return
+				}
+				if (this.title.length < 12) {
+					uni.showToast({
+						icon: 'none',
+						title: '请输入不少于12字的标题！'
+					})
+					return
+				}
+				if (this.img.length === 0) {
+					uni.showToast({
+						icon: 'none',
+						title: '请至少选择一张图片！'
+					})
+					return
+				}
+				uni.showLoading({
+					title: '发布中',
+					mask: true
+				})
+				let insertId			// 插入笔记在表中的id
+				const re = /[']/g			// 加入转义符号去除单引号对SQL语句的影响
+				let title = this.title.replace(re, '\\\'')
+				let mainBody = this.mainBody.replace(re, '\\\'')
+				console.log(mainBody)
+				const reqObj = {
+					tag: this.tags[this.selectedTag],
+					title,
+					mainBody,
+					imgNum: this.img.length
+				}
+				createNewNote(reqObj).then(res => {		// 创建笔记，获得insertId
+					if (res.data.code != 200) {
+						return Promise.reject('create failed')
+					} else {
+						insertId = res.data.insertId
+					}
+				}).catch(() => 
+					Promise.reject()
+				).then(() => 		// upLoadFile只支持单文件上传
+					Promise.all(this.img.map((item, index) => uploadImg(item.tempFilePath, insertId, index)))
+				).then((res) => {
+					uni.hideLoading()
+					uni.showToast({
+						icon: 'success',
+						title: '发布成功'
+					})
+				}).catch((err) => {
+					uni.hideLoading()
+					uni.showToast({
+						icon: 'error',
+						title: '发布失败'
+					})
+				})
+			},
+			// 删除已选图片
+			deleteImg(index) {
+				this.img.splice(index, 1)
 			}
 		},
 		onLoad() {
@@ -107,10 +182,9 @@
 				height: 40px;
 				padding-left: 15rpx;
 				white-space: nowrap;
-				display: flex;
-				align-items: center;
 				
 				.tags-item {
+					display: inline-block;
 					box-sizing: border-box;
 					flex-shrink: 0;
 					height: 36px;
@@ -153,16 +227,35 @@
 		.preview {
 			width: 100%;
 			height: 80px;
-			display: flex;
-			align-items: center;
+			line-height: 80px;
 			box-sizing: border-box;
 			border-top: 1px dotted #bbb;
+			white-space: nowrap;
 			
-			image {
-				display: block;
+			.preview-item {
+				display: inline-block;
 				width: 70px;
 				height: 70px;
-				border-radius: 10px;
+				position: relative;
+				margin: 5px;
+				
+				.img {
+					display: block;
+					width: 100%;
+					height: 100%;
+					border-radius: 10px;
+				}
+				
+				.deleteImg {
+					position: absolute;
+					display: block;
+					right: 0;
+					top: 0;
+					width: 16px;
+					height: 16px;
+					background-color: rgba(60, 60, 60, .8);
+					border-radius: 50%;
+				}
 			}
 		}
 		
@@ -170,6 +263,7 @@
 			height: 40px;
 			width: 100%;
 			border-top: 1px solid #bbb;
+			position: relative;
 			display: flex;
 			align-items: center;
 			
@@ -187,6 +281,36 @@
 					width: 100%;
 					height: 100%;
 				}
+			}
+			
+			.textNum,
+			.picNum {
+				height: 40px;
+				padding-left: 10px;
+				padding-right: 10px;
+				font-size: 14px;
+				line-height: 40px;
+				
+				text {
+					display: inline;
+				}
+			}
+			
+			.submit {
+				position: absolute;
+				right: 15px;
+				width: 50px;
+				height: 40px;
+				border-radius: 6px;
+				background-color: #4991ba;
+				color: #fff;
+				text-align: center;
+				line-height: 40px;
+				
+				// &:hover {
+				// 	background-color: #366d8a;
+				// 	color: #888;
+				// }
 			}
 		}
 	}

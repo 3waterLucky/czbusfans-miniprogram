@@ -175,6 +175,16 @@
 				"enablePullDownRefresh": false,
 				"disableScroll": true
 			}
+		},
+		{
+			"path" : "pages/NoteShare/NoteDetail/NoteDetail",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "笔记详情",
+				"navigationBarBackgroundColor": "#4991ba",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {
